@@ -1,0 +1,1999 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visa by Package – لوحة المتابعة | Ministry of Tourism</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Noto+Sans+Arabic:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   MINISTRY OF TOURISM – OFFICIAL BRAND SYSTEM (mt.gov.sa)
+   Logo colors: Green #0C4B3A · Teal #1E8070 · Purple #6B3FA0
+   Background: White · Surface: #F5F5F0 (stone-warm)
+   Typography: IBM Plex Sans (EN) · Noto Sans Arabic (AR)
+═══════════════════════════════════════════════════════════════ */
+:root {
+  /* ── MoT Brand Trio ── */
+  --g1: #0C4B3A;   /* deep green  – primary */
+  --g2: #1A6854;   /* mid green */
+  --g3: #2E8B72;   /* light green */
+  --g4: #C8E8DF;   /* pale green tint */
+  --g5: #EAF4F1;   /* ghost green */
+
+  --t1: #1B6E62;   /* deep teal */
+  --t2: #1E8070;   /* mid teal */
+  --t3: #2E9D8A;   /* light teal */
+  --t4: #C5E6E1;   /* pale teal */
+  --t5: #E8F5F3;   /* ghost teal */
+
+  --p1: #4A2880;   /* deep purple */
+  --p2: #6B3FA0;   /* mid purple  – accent */
+  --p3: #9068C0;   /* light purple */
+  --p4: #DDD0F0;   /* pale purple */
+  --p5: #F2EEF9;   /* ghost purple */
+
+  /* ── Semantic Status Colors ── */
+  --s-success: #1A7A4A;
+  --s-warn:    #B56A00;
+  --s-danger:  #B83232;
+  --s-info:    #1A5490;
+
+  /* ── Surfaces & BG ── */
+  --bg:       #F2F1EC;
+  --bg2:      #ECEAE4;
+  --white:    #FFFFFF;
+  --surface:  #FFFFFF;
+  --srf2:     #F7F6F2;
+  --srf3:     #EDECE8;
+
+  /* ── Borders ── */
+  --bdr:  rgba(12,75,58,0.10);
+  --bdr2: rgba(12,75,58,0.18);
+
+  /* ── Text ── */
+  --tx1: #0A2218;   /* near-black green */
+  --tx2: #3A5E52;   /* muted green */
+  --tx3: #7A9E92;   /* placeholder */
+
+  /* ── Type ── */
+  --font:    'IBM Plex Sans', sans-serif;
+  --font-ar: 'Noto Sans Arabic', sans-serif;
+
+  /* ── Geometry ── */
+  --r:    14px;
+  --r-sm: 9px;
+  --sh:   0 1px 4px rgba(0,0,0,0.06), 0 4px 16px rgba(12,75,58,0.07);
+  --sh2:  0 4px 24px rgba(12,75,58,0.13);
+  --ease: 0.22s cubic-bezier(.4,0,.2,1);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--tx1);
+  font-family:var(--font);font-size:13px;line-height:1.55;
+  min-height:100vh;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+
+/* subtle grain texture */
+body::after{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.02'/%3E%3C/svg%3E");
+  opacity:0.4;
+}
+
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:var(--bg2)}
+::-webkit-scrollbar-thumb{background:var(--g4);border-radius:99px}
+
+/* ═══════════════════════════════════════════════════════
+   HEADER — deep green with gold stripe
+═══════════════════════════════════════════════════════ */
+.header{
+  position:sticky;top:0;z-index:400;
+  background:var(--g1);
+  border-bottom:3px solid var(--t2);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 30px;height:66px;
+  box-shadow:0 2px 24px rgba(12,75,58,0.30);
+  animation:hdrIn .4s ease both;
+}
+@keyframes hdrIn{from{transform:translateY(-100%);opacity:0}to{transform:none;opacity:1}}
+
+.hdr-left{display:flex;align-items:center;gap:0}
+.hdr-brand{
+  display:flex;align-items:center;gap:12px;
+  padding-right:20px;margin-right:20px;
+  border-right:1px solid rgba(255,255,255,0.18);
+}
+/* Logo mark — three-color map-inspired SVG */
+.logo-mark svg{display:block}
+
+.hdr-brand-text{display:flex;flex-direction:column;gap:1px}
+.hdr-brand-ar{font-family:var(--font-ar);font-size:15px;font-weight:800;color:#fff;line-height:1.1}
+.hdr-brand-en{font-size:10px;font-weight:500;color:rgba(255,255,255,0.65);letter-spacing:0.4px}
+
+.hdr-title{display:flex;flex-direction:column;gap:1px}
+.hdr-title-en{font-size:13.5px;font-weight:600;color:#fff;letter-spacing:-.2px}
+.hdr-title-ar{font-size:12px;font-weight:700;color:rgba(255,255,255,0.70);font-family:var(--font-ar)}
+
+.hdr-right{display:flex;align-items:center;gap:10px}
+
+.pill-live{
+  display:flex;align-items:center;gap:5px;padding:4px 12px;
+  background:rgba(255,255,255,0.10);border:1px solid rgba(255,255,255,0.20);
+  border-radius:99px;font-size:11px;font-weight:600;color:#fff;
+}
+.live-dot{width:6px;height:6px;border-radius:50%;background:var(--t3);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.5)}}
+
+.hdr-clock{font-size:11px;color:rgba(255,255,255,0.55)}
+
+.lang-pill{
+  display:flex;background:rgba(255,255,255,0.10);border-radius:8px;padding:3px;gap:2px;
+  border:1px solid rgba(255,255,255,0.16);
+}
+.lang-btn{
+  padding:4px 13px;border-radius:6px;border:none;cursor:pointer;
+  font-size:11.5px;font-weight:700;transition:all var(--ease);
+  background:transparent;color:rgba(255,255,255,0.65);font-family:var(--font);
+}
+.lang-btn.active{background:var(--t2);color:#fff;box-shadow:0 2px 8px rgba(30,128,112,0.4)}
+
+/* ═══════════════════════════════════════════════════════
+   NAV — dark green band
+═══════════════════════════════════════════════════════ */
+.nav{
+  background:var(--tx1);
+  display:flex;overflow-x:auto;
+  padding:0 30px;border-bottom:1px solid rgba(255,255,255,0.07);
+  position:sticky;top:66px;z-index:300;
+  scrollbar-width:none;
+}
+.nav::-webkit-scrollbar{display:none}
+.nav-btn{
+  padding:12px 20px;border:none;cursor:pointer;white-space:nowrap;
+  font-size:12px;font-weight:600;font-family:var(--font);
+  background:transparent;color:rgba(255,255,255,0.50);
+  border-bottom:3px solid transparent;transition:all var(--ease);
+}
+.nav-btn:hover:not(.active){color:rgba(255,255,255,0.85);background:rgba(255,255,255,0.04)}
+.nav-btn.active{color:var(--t3);border-bottom-color:var(--t3)}
+
+/* ═══════════════════════════════════════════════════════
+   MAIN
+═══════════════════════════════════════════════════════ */
+.main{padding:22px 30px 50px;max-width:1760px;margin:0 auto;position:relative;z-index:1}
+@keyframes up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* ═══════════════════════════════════════════════════════
+   SECTION DIVIDER
+═══════════════════════════════════════════════════════ */
+.sdiv{
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:14px;margin-top:4px;
+}
+.sdiv::before,.sdiv::after{
+  content:'';flex:1;height:1.5px;
+  background:linear-gradient(90deg,var(--g1) 0%,transparent 100%);
+}
+.sdiv::after{background:linear-gradient(90deg,transparent,var(--g1))}
+.sdiv span{
+  font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.9px;
+  color:var(--g1);white-space:nowrap;padding:0 6px;
+}
+
+/* ═══════════════════════════════════════════════════════
+   FILTERS
+═══════════════════════════════════════════════════════ */
+.filters{
+  background:var(--white);border:1px solid var(--bdr);border-radius:var(--r);
+  padding:15px 18px;display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;
+  margin-bottom:20px;box-shadow:var(--sh);
+  border-left:4px solid var(--g1);
+  animation:up .4s ease both .05s;
+}
+body.ar .filters{border-left:none;border-right:4px solid var(--g1)}
+
+.fi{display:flex;flex-direction:column;gap:4px}
+.fi-label{
+  font-size:9.5px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.8px;color:var(--tx3);
+}
+body.ar .fi-label{font-family:var(--font-ar);text-transform:none;letter-spacing:0;font-size:11px}
+
+select,input[type=date]{
+  background:var(--srf2);border:1.5px solid var(--bdr2);
+  color:var(--tx1);padding:7px 10px;border-radius:8px;
+  font-size:12px;font-family:var(--font);outline:none;cursor:pointer;
+  transition:border-color var(--ease);min-width:136px;
+}
+select:focus,input[type=date]:focus{
+  border-color:var(--g1);
+  box-shadow:0 0 0 3px rgba(12,75,58,.09);
+}
+.fi-dates{display:flex;align-items:center;gap:5px}
+.fi-sep{font-size:11px;color:var(--tx3)}
+.fi-actions{display:flex;gap:8px;margin-left:auto;align-items:flex-end}
+body.ar .fi-actions{margin-left:0;margin-right:auto}
+
+.btn-prim{
+  background:linear-gradient(135deg,var(--g1),var(--g2));
+  color:#fff;border:none;padding:8px 20px;border-radius:8px;
+  font-size:12.5px;font-weight:600;cursor:pointer;font-family:var(--font);
+  box-shadow:0 3px 12px rgba(12,75,58,.24);transition:all var(--ease);white-space:nowrap;
+}
+.btn-prim:hover{transform:translateY(-1px);box-shadow:0 5px 18px rgba(12,75,58,.34)}
+.btn-ghost{
+  background:var(--srf2);color:var(--tx2);
+  border:1.5px solid var(--bdr2);
+  padding:8px 14px;border-radius:8px;font-size:12px;font-weight:600;
+  cursor:pointer;transition:all var(--ease);font-family:var(--font);
+}
+.btn-ghost:hover{border-color:var(--g1);color:var(--g1)}
+
+/* ═══════════════════════════════════════════════════════
+   KPI CARDS
+═══════════════════════════════════════════════════════ */
+.kpi-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:12px;margin-bottom:20px;
+}
+@media(max-width:1280px){.kpi-grid{grid-template-columns:repeat(2,1fr)}}
+
+.kpi{
+  background:var(--white);border:1px solid var(--bdr);
+  border-radius:var(--r);padding:18px 18px 16px;
+  position:relative;overflow:hidden;cursor:default;
+  transition:all var(--ease);box-shadow:var(--sh);
+  animation:up .4s ease both;
+}
+.kpi::before{/* top accent bar */
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:var(--r) var(--r) 0 0;
+}
+.kpi:hover{transform:translateY(-2px);box-shadow:var(--sh2)}
+
+/* color variants */
+.kv-g::before{background:linear-gradient(90deg,var(--g1),var(--g3))}
+.kv-t::before{background:linear-gradient(90deg,var(--t1),var(--t3))}
+.kv-p::before{background:linear-gradient(90deg,var(--p1),var(--p3))}
+.kv-w::before{background:linear-gradient(90deg,var(--s-warn),#E8930A)}
+.kv-r::before{background:linear-gradient(90deg,var(--s-danger),#D9534F)}
+.kv-i::before{background:linear-gradient(90deg,var(--s-info),#2E7AB8)}
+
+/* soft bg tints */
+.kv-g{background:linear-gradient(145deg,#fff 55%,var(--g5))}
+.kv-t{background:linear-gradient(145deg,#fff 55%,var(--t5))}
+.kv-p{background:linear-gradient(145deg,#fff 55%,var(--p5))}
+.kv-w{background:linear-gradient(145deg,#fff 55%,rgba(181,106,0,.04))}
+.kv-r{background:linear-gradient(145deg,#fff 55%,rgba(184,50,50,.04))}
+.kv-i{background:linear-gradient(145deg,#fff 55%,rgba(26,84,144,.04))}
+
+.kpi-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px}
+.kpi-icon{
+  width:40px;height:40px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;font-size:19px;
+}
+.kv-g .kpi-icon{background:var(--g5)}
+.kv-t .kpi-icon{background:var(--t5)}
+.kv-p .kpi-icon{background:var(--p5)}
+.kv-w .kpi-icon{background:rgba(181,106,0,.08)}
+.kv-r .kpi-icon{background:rgba(184,50,50,.08)}
+.kv-i .kpi-icon{background:rgba(26,84,144,.08)}
+
+.kpi-delta{font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px}
+.d-up  {background:rgba(26,122,74,.10);color:var(--s-success)}
+.d-dn  {background:rgba(184,50,50,.10);color:var(--s-danger)}
+.d-neu {background:rgba(181,106,0,.10);color:var(--s-warn)}
+
+.kpi-val{
+  font-size:30px;font-weight:800;letter-spacing:-1.5px;line-height:1;margin-bottom:5px;
+}
+.kv-g .kpi-val{color:var(--g1)}
+.kv-t .kpi-val{color:var(--t1)}
+.kv-p .kpi-val{color:var(--p2)}
+.kv-w .kpi-val{color:var(--s-warn)}
+.kv-r .kpi-val{color:var(--s-danger)}
+.kv-i .kpi-val{color:var(--s-info)}
+
+.kpi-label-en{font-size:11.5px;font-weight:500;color:var(--tx2)}
+.kpi-label-ar{font-size:10.5px;color:var(--tx3);font-family:var(--font-ar);margin-top:1px}
+
+/* ═══════════════════════════════════════════════════════
+   CARDS
+═══════════════════════════════════════════════════════ */
+.card{
+  background:var(--white);border:1px solid var(--bdr);
+  border-radius:var(--r);padding:18px 20px;
+  box-shadow:var(--sh);animation:up .4s ease both;
+}
+.card-hdr{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  margin-bottom:16px;padding-bottom:12px;
+  border-bottom:1px solid var(--bdr);
+}
+.card-ttl-en{font-size:13px;font-weight:700;color:var(--tx1)}
+.card-ttl-ar{font-size:11.5px;font-family:var(--font-ar);color:var(--tx2);margin-top:2px}
+.card-badge{
+  font-size:10px;padding:3px 10px;border-radius:99px;
+  background:var(--g5);color:var(--g1);
+  border:1px solid var(--g4);font-weight:600;white-space:nowrap;
+}
+
+/* ═══════════════════════════════════════════════════════
+   LAYOUT GRIDS
+═══════════════════════════════════════════════════════ */
+.g2  {display:grid;grid-template-columns:1fr 1fr;    gap:12px;margin-bottom:12px}
+.g3  {display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px}
+.g32 {display:grid;grid-template-columns:3fr 2fr;    gap:12px;margin-bottom:12px}
+.g23 {display:grid;grid-template-columns:2fr 3fr;    gap:12px;margin-bottom:12px}
+@media(max-width:1100px){.g2,.g3,.g32,.g23{grid-template-columns:1fr}}
+
+.ch    {position:relative;height:220px}
+.ch-sm {position:relative;height:170px}
+.ch-lg {position:relative;height:260px}
+
+/* ═══════════════════════════════════════════════════════
+   STATUS FUNNEL
+═══════════════════════════════════════════════════════ */
+.funnel{display:flex;flex-direction:column;gap:6px}
+.funnel-row{
+  display:flex;align-items:center;gap:10px;padding:9px 12px;
+  border-radius:8px;background:var(--srf2);border:1px solid var(--bdr);
+  cursor:pointer;transition:all var(--ease);
+}
+.funnel-row:hover{background:var(--g5);border-color:var(--g4)}
+.funnel-st{min-width:120px}
+.funnel-en{font-size:11px;font-weight:700}
+.funnel-ar{font-size:10px;font-family:var(--font-ar);color:var(--tx3)}
+.funnel-track{flex:1;height:7px;background:var(--srf3);border-radius:4px;overflow:hidden}
+.funnel-bar{height:100%;border-radius:4px;transition:width 1.3s cubic-bezier(.4,0,.2,1)}
+.funnel-n{font-size:13px;font-weight:700;min-width:50px;text-align:right}
+.funnel-pct{font-size:10px;color:var(--tx3);min-width:30px;text-align:right}
+
+/* ═══════════════════════════════════════════════════════
+   HBAR LISTS
+═══════════════════════════════════════════════════════ */
+.hbl{display:flex;flex-direction:column;gap:11px}
+.hbl-row{display:flex;align-items:center;gap:10px}
+.hbl-label{font-size:11px;color:var(--tx2);min-width:155px}
+.hbl-track{flex:1;height:8px;background:var(--srf3);border-radius:4px;overflow:hidden}
+.hbl-fill{height:100%;border-radius:4px;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
+.hbl-val{font-size:11px;font-weight:700;min-width:36px;text-align:right}
+
+/* ═══════════════════════════════════════════════════════
+   COUNTRY LIST
+═══════════════════════════════════════════════════════ */
+.clist{display:flex;flex-direction:column}
+.crow{
+  display:flex;align-items:center;gap:10px;
+  padding:8px 0;border-bottom:1px solid var(--bdr);
+}
+.crow:last-child{border-bottom:none}
+.crow-flag{font-size:20px;width:26px;text-align:center;flex-shrink:0}
+.crow-name{font-size:12px;font-weight:500;flex:1;color:var(--tx1)}
+.crow-bar{width:68px;height:5px;background:var(--srf3);border-radius:3px;overflow:hidden}
+.crow-fill{height:100%;border-radius:3px}
+.crow-n{font-size:12px;font-weight:700;color:var(--g1);min-width:48px;text-align:right}
+
+/* ═══════════════════════════════════════════════════════
+   DMC LEADERBOARD
+═══════════════════════════════════════════════════════ */
+.dmc-list{display:flex;flex-direction:column;gap:6px}
+.dmc-row{
+  display:flex;align-items:center;gap:11px;padding:10px 13px;
+  background:var(--srf2);border-radius:var(--r-sm);border:1px solid var(--bdr);
+  transition:all var(--ease);
+}
+.dmc-row:hover{background:var(--g5);border-color:var(--g4)}
+.rank-badge{
+  width:26px;height:26px;border-radius:7px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:800;
+}
+.rk1{background:rgba(201,162,50,.18);color:#8A6200}
+.rk2{background:rgba(120,130,145,.14);color:#5A6070}
+.rk3{background:rgba(140,80,10,.13);color:#7A4500}
+.rkn{background:var(--srf3);color:var(--tx3)}
+.dmc-info{flex:1}
+.dmc-name{font-size:12px;font-weight:600;color:var(--tx1)}
+.dmc-sub{font-size:10px;color:var(--tx3);margin-top:1px}
+.dmc-stats{display:flex;gap:18px}
+.dmc-stat{text-align:right}
+.dmc-stat-val{font-size:14px;font-weight:700}
+.dmc-stat-key{font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.4px}
+
+/* ═══════════════════════════════════════════════════════
+   BADGES
+═══════════════════════════════════════════════════════ */
+.badge{
+  display:inline-flex;align-items:center;
+  padding:3px 9px;border-radius:99px;
+  font-size:10px;font-weight:700;white-space:nowrap;
+}
+.b-completed {background:rgba(26,122,74,.10); color:var(--s-success);border:1px solid rgba(26,122,74,.16)}
+.b-processing{background:rgba(26,84,144,.10); color:var(--s-info);   border:1px solid rgba(26,84,144,.16)}
+.b-validated {background:var(--t5);            color:var(--t1);       border:1px solid var(--t4)}
+.b-received  {background:rgba(181,106,0,.10);  color:var(--s-warn);   border:1px solid rgba(181,106,0,.16)}
+.b-rejected  {background:rgba(184,50,50,.10);  color:var(--s-danger); border:1px solid rgba(184,50,50,.16)}
+.b-cancelled {background:var(--p5);            color:var(--p2);       border:1px solid var(--p4)}
+.b-paid      {background:var(--g5);            color:var(--g1);       border:1px solid var(--g4)}
+
+/* ═══════════════════════════════════════════════════════
+   PACKAGE TABLE
+═══════════════════════════════════════════════════════ */
+.tbl-wrap{overflow-x:auto}
+table.ptbl{width:100%;border-collapse:collapse;font-size:11.5px}
+.ptbl thead tr{background:linear-gradient(135deg,var(--g1),var(--g2))}
+.ptbl th{
+  text-align:left;padding:10px 12px;
+  font-size:9.5px;text-transform:uppercase;letter-spacing:.6px;
+  color:rgba(255,255,255,.85);font-weight:700;white-space:nowrap;
+}
+.ptbl td{padding:10px 12px;border-bottom:1px solid var(--bdr);white-space:nowrap}
+.ptbl tr:hover td{background:var(--g5)}
+.ptbl-id{color:var(--t1);font-family:monospace;font-size:11px;font-weight:600}
+.ptbl-td{color:var(--tx2)}
+.ptbl-val{color:var(--tx1);font-weight:600}
+.ptbl-fee{color:var(--g1);font-weight:700}
+
+/* ═══════════════════════════════════════════════════════
+   FEE TABLE
+═══════════════════════════════════════════════════════ */
+.ftbl-wrap table{width:100%;border-collapse:collapse}
+.ftbl-wrap th{
+  text-align:left;font-size:9.5px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.7px;color:var(--tx3);padding-bottom:10px;
+}
+.ftbl-wrap td{padding:8px 0;border-top:1px solid var(--bdr);vertical-align:middle}
+.fee-en{font-size:12px;font-weight:500;color:var(--tx1)}
+.fee-ar{font-size:10px;font-family:var(--font-ar);color:var(--tx3)}
+.fee-amt{font-size:13px;font-weight:700;color:var(--g1);text-align:right}
+.fee-total{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-top:12px;padding-top:12px;border-top:2px solid var(--g4);
+}
+.fee-total-lbl{font-size:11px;font-weight:600;color:var(--tx2)}
+.fee-total-val{font-size:18px;font-weight:800;color:var(--g1)}
+
+/* ═══════════════════════════════════════════════════════
+   VCC / VALIDATION LISTS
+═══════════════════════════════════════════════════════ */
+.vcc-list{display:flex;flex-direction:column;gap:7px}
+.vcc-item{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 13px;background:var(--srf2);
+  border-radius:var(--r-sm);border:1px solid var(--bdr);
+}
+.vcc-lbl-en{font-size:12px;font-weight:500;color:var(--tx1)}
+.vcc-lbl-ar{font-size:10px;font-family:var(--font-ar);color:var(--tx3)}
+.vcc-val{font-size:22px;font-weight:800}
+
+.val-list{display:flex;flex-direction:column;gap:6px}
+.val-row{
+  display:flex;align-items:center;gap:10px;padding:9px 12px;
+  background:var(--srf2);border-radius:8px;border:1px solid var(--bdr);
+}
+.val-icon{font-size:15px;width:20px;text-align:center;flex-shrink:0}
+.val-lbl{font-size:11.5px;flex:1;font-weight:500}
+.val-n{font-size:14px;font-weight:800}
+
+/* ═══════════════════════════════════════════════════════
+   MOI CARDS
+═══════════════════════════════════════════════════════ */
+.moi-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.moi-card{
+  background:var(--srf2);border:1px solid var(--bdr);
+  border-radius:var(--r-sm);padding:13px;
+  border-left:3px solid var(--g1);
+}
+.moi-val{font-size:22px;font-weight:800;margin-bottom:3px}
+.moi-lbl{font-size:10.5px;color:var(--tx2)}
+.moi-ar{font-size:10px;font-family:var(--font-ar);color:var(--tx3)}
+
+/* ═══════════════════════════════════════════════════════
+   VISIBILITY
+═══════════════════════════════════════════════════════ */
+.section.hidden{display:none!important}
+.ar-text{display:none}
+body.ar .ar-text{display:block}
+body.ar .en-text{display:none}
+body.ar{font-family:var(--font-ar);direction:rtl}
+body.ar .ptbl th,.ptbl td,.ftbl-wrap th,.ftbl-wrap td{text-align:right}
+body.ar .fee-amt{text-align:left}
+body.ar .dmc-stat{text-align:left}
+body.ar .hbl-label{text-align:right}
+body.ar .card-hdr{flex-direction:row-reverse}
+body.ar .moi-card{border-left:none;border-right:3px solid var(--g1)}
+
+/* ── OVERSTAY ──────────────────────────────────────── */
+.overstay-sdiv{background:linear-gradient(135deg,#7a1a1a,#b83232);border-radius:10px;
+  padding:10px 18px;margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.overstay-sdiv span{color:#fff;font-weight:700;font-size:14px;letter-spacing:.02em}
+.overstay-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.overstay-stat{background:#fff;border:2px solid #f8d7d7;border-radius:10px;
+  padding:14px 16px;text-align:center;display:flex;flex-direction:column;gap:4px}
+.os-val{font-size:28px;font-weight:800;color:#b83232;line-height:1}
+.os-lbl{font-size:11px;color:#666;line-height:1.3}
+/* Per-package overstay card */
+.os-card{background:#fff;border:1px solid #f0d0d0;border-left:4px solid #b83232;
+  border-radius:10px;padding:0;margin-bottom:10px;overflow:hidden}
+.os-card-hdr{background:linear-gradient(90deg,#fff5f5,#fff);padding:12px 16px;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  border-bottom:1px solid #f5dada}
+.os-pkg-id{font-size:13px;font-weight:800;color:#b83232;font-family:'Courier New',monospace}
+.os-dmc{font-size:13px;font-weight:700;color:#0d4f3c}
+.os-city{font-size:12px;color:#555;background:#f0f0f0;padding:2px 8px;border-radius:12px}
+.os-hotel{font-size:11px;color:#777;font-style:italic}
+.os-contact{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.os-contact-btn{font-size:11px;font-weight:600;padding:4px 10px;border-radius:16px;
+  border:none;cursor:pointer;display:flex;align-items:center;gap:4px;text-decoration:none}
+.os-contact-btn.email{background:#e8f5ee;color:#0d4f3c}
+.os-contact-btn.phone{background:#e8eef8;color:#1a5490}
+.os-tbl{width:100%;border-collapse:collapse;font-size:12px}
+.os-tbl th{background:#fdf0f0;color:#8b2222;font-weight:700;padding:8px 12px;
+  text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.04em;
+  border-bottom:1px solid #f0d0d0}
+.os-tbl td{padding:8px 12px;border-bottom:1px solid #faf0f0;color:#333;vertical-align:middle}
+.os-tbl tr:last-child td{border-bottom:none}
+.os-tbl tr:hover td{background:#fff8f8}
+.os-days{display:inline-block;background:#b83232;color:#fff;font-weight:800;
+  font-size:11px;padding:2px 8px;border-radius:10px;min-width:52px;text-align:center}
+.os-days.warn{background:#b56a00}
+.os-days.crit{background:#7a1212}
+.os-passport{font-family:'Courier New',monospace;font-size:11px;color:#555;
+  background:#f8f8f8;padding:1px 6px;border-radius:4px}
+.os-empty{text-align:center;padding:32px;color:#999;font-size:13px}
+@media(max-width:900px){.overstay-bar{grid-template-columns:repeat(2,1fr)}}
+.os-export-btn{background:rgba(255,255,255,0.18);color:#fff;border:1.5px solid rgba(255,255,255,0.4);
+  border-radius:8px;padding:6px 14px;font-size:12px;font-weight:700;cursor:pointer;
+  font-family:inherit;transition:background .2s,transform .1s;white-space:nowrap}
+.os-export-btn:hover{background:rgba(255,255,255,0.32);transform:translateY(-1px)}
+.os-export-btn:active{transform:translateY(0)}
+.os-export-xl{background:rgba(30,128,112,0.5);border-color:rgba(30,128,112,0.8)}
+</style>
+</head>
+<body>
+
+<!-- ════ HEADER ════════════════════════════════════════ -->
+<header class="header">
+  <div class="hdr-left">
+    <div class="hdr-brand">
+      <!-- MoT logo mark: green / teal / purple calligraphy-inspired -->
+      <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo-mark">
+        <rect width="44" height="44" rx="10" fill="rgba(255,255,255,0.08)"/>
+        <!-- Green stroke — top arc, Saudi map-inspired -->
+        <path d="M8 14 Q12 8 22 10 Q32 8 36 14" stroke="#2E8B72" stroke-width="2.8" stroke-linecap="round" fill="none"/>
+        <!-- Teal stroke — middle path -->
+        <path d="M6 21 Q10 17 17 19 L22 22 L27 19 Q34 17 38 21" stroke="#1E8070" stroke-width="2.8" stroke-linecap="round" fill="none"/>
+        <!-- Purple stroke — bottom calligraphy sweep -->
+        <path d="M10 30 Q16 26 22 28 Q28 26 34 30 Q36 34 22 36 Q8 34 10 30Z" stroke="#6B3FA0" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <!-- Center dot -->
+        <circle cx="22" cy="22" r="2" fill="rgba(255,255,255,0.6)"/>
+      </svg>
+      <div class="hdr-brand-text">
+        <div class="hdr-brand-ar">وزارة السياحة</div>
+        <div class="hdr-brand-en">MINISTRY OF TOURISM · KSA</div>
+      </div>
+    </div>
+    <div class="hdr-title">
+      <div class="hdr-title-en en-text">Visa by Package — Operations Dashboard</div>
+      <div class="hdr-title-ar ar-text">لوحة متابعة مبادرة التأشيرة ضمن باقة السفر</div>
+      <div class="hdr-title-ar en-text">لوحة متابعة — التأشيرة ضمن باقة السفر</div>
+    </div>
+  </div>
+  <div class="hdr-right">
+    <div class="pill-live"><div class="live-dot"></div><span>Live</span></div>
+    <div class="hdr-clock" id="clockEl"></div>
+    <div class="lang-pill">
+      <button class="lang-btn active" id="btnEn" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" id="btnAr" onclick="setLang('ar')">عربي</button>
+    </div>
+  </div>
+</header>
+
+<!-- ════ NAV ════════════════════════════════════════════ -->
+<nav class="nav">
+  <button class="nav-btn active" onclick="showTab('overview',this)">
+    <span class="en-text">📊 Overview</span><span class="ar-text">📊 نظرة عامة</span>
+  </button>
+  <button class="nav-btn" onclick="showTab('packages',this)">
+    <span class="en-text">📦 Packages & Financials</span><span class="ar-text">📦 الباقات والمالية</span>
+  </button>
+  <button class="nav-btn" onclick="showTab('visa-ins',this)">
+    <span class="en-text">🛂 Visa & Insurance</span><span class="ar-text">🛂 التأشيرة والتأمين</span>
+  </button>
+  <button class="nav-btn" onclick="showTab('dmc',this)">
+    <span class="en-text">🏢 DMC Performance</span><span class="ar-text">🏢 أداء الشركات</span>
+  </button>
+  <button class="nav-btn" onclick="showTab('moi',this)">
+    <span class="en-text">🚪 Entry & Cancellations</span><span class="ar-text">🚪 الدخول والإلغاء</span>
+  </button>
+</nav>
+
+<!-- ════ MAIN ════════════════════════════════════════════ -->
+<main class="main">
+
+<!-- FILTERS -->
+<div class="filters">
+  <div class="fi">
+    <div class="fi-label"><span class="en-text">Date Range</span><span class="ar-text">نطاق التاريخ</span></div>
+    <div class="fi-dates">
+      <input type="date" id="f-from" value="2026-01-01">
+      <span class="fi-sep">→</span>
+      <input type="date" id="f-to"   value="2026-03-10">
+    </div>
+  </div>
+  <div class="fi">
+    <div class="fi-label"><span class="en-text">Package Status</span><span class="ar-text">حالة الباقة</span></div>
+    <select>
+      <option>All / الكل</option>
+      <option>Received / مستلمة</option>
+      <option>Validated / تم التحقق</option>
+      <option>Fees Paid / تم السداد</option>
+      <option>Processing / قيد المعالجة</option>
+      <option>Completed / مكتملة</option>
+      <option>Rejected / مرفوضة</option>
+      <option>Cancelled / ملغاة</option>
+    </select>
+  </div>
+  <div class="fi">
+    <div class="fi-label"><span class="en-text">DMC / OTA</span><span class="ar-text">شركة السياحة</span></div>
+    <select>
+      <option>All / الكل</option>
+      <option>Almosafer Travel</option><option>Seera Group</option>
+      <option>Wego</option><option>Tajawal</option>
+      <option>Flyin.com</option><option>Al Tayyar Group</option>
+    </select>
+  </div>
+  <div class="fi">
+    <div class="fi-label"><span class="en-text">Nationality</span><span class="ar-text">الجنسية</span></div>
+    <select>
+      <option>All / الكل</option>
+      <option>Indian</option><option>Pakistani</option><option>Indonesian</option>
+      <option>Egyptian</option><option>British</option><option>American</option>
+    </select>
+  </div>
+  <div class="fi">
+    <div class="fi-label"><span class="en-text">City of Stay</span><span class="ar-text">مدينة الإقامة</span></div>
+    <select>
+      <option>All / الكل</option>
+      <option>Riyadh</option><option>Jeddah</option><option>AlUla</option>
+      <option>Abha</option><option>Taif</option><option>Dammam</option>
+    </select>
+  </div>
+  <div class="fi">
+    <div class="fi-label"><span class="en-text">Payment Status</span><span class="ar-text">حالة الدفع</span></div>
+    <select>
+      <option>All / الكل</option>
+      <option>Paid</option><option>Pending</option><option>Failed</option>
+    </select>
+  </div>
+  <div class="fi">
+    <div class="fi-label"><span class="en-text">Hotel Class</span><span class="ar-text">تصنيف الفندق</span></div>
+    <select><option>All / الكل</option><option>4★</option><option>5★</option></select>
+  </div>
+  <div class="fi-actions">
+    <button class="btn-ghost" onclick="resetF()">↺ <span class="en-text">Reset</span><span class="ar-text">إعادة</span></button>
+    <button class="btn-prim"  onclick="applyF()"><span class="en-text">Apply Filters</span><span class="ar-text">تطبيق</span></button>
+  </div>
+</div>
+
+<!-- ════════ OVERVIEW ════════════════════════════════════ -->
+<div id="tab-overview" class="section">
+  <div class="kpi-grid">
+    <div class="kpi kv-g" style="animation-delay:.04s">
+      <div class="kpi-top"><div class="kpi-icon">📦</div><div class="kpi-delta d-up">↑ 18%</div></div>
+      <div class="kpi-val" data-target="4827">0</div>
+      <div class="kpi-label-en en-text">Total Packages Submitted</div>
+      <div class="kpi-label-ar">إجمالي الباقات المقدمة</div>
+    </div>
+    <div class="kpi kv-t" style="animation-delay:.08s">
+      <div class="kpi-top"><div class="kpi-icon">🛂</div><div class="kpi-delta d-up">↑ 22%</div></div>
+      <div class="kpi-val" data-target="11243">0</div>
+      <div class="kpi-label-en en-text">Total Visas Issued</div>
+      <div class="kpi-label-ar">إجمالي التأشيرات الصادرة</div>
+    </div>
+    <div class="kpi kv-g" style="animation-delay:.12s">
+      <div class="kpi-top"><div class="kpi-icon">💰</div><div class="kpi-delta d-up">↑ 31%</div></div>
+      <div class="kpi-val" data-target="5204430" data-fmt="sar">0</div>
+      <div class="kpi-label-en en-text">Total Fees Collected (SAR)</div>
+      <div class="kpi-label-ar">إجمالي الرسوم المحصلة</div>
+    </div>
+    <div class="kpi kv-p" style="animation-delay:.16s">
+      <div class="kpi-top"><div class="kpi-icon">🛡️</div><div class="kpi-delta d-up">↑ 19%</div></div>
+      <div class="kpi-val" data-target="10918">0</div>
+      <div class="kpi-label-en en-text">Insurance Policies Issued</div>
+      <div class="kpi-label-ar">وثائق التأمين الصادرة</div>
+    </div>
+  </div>
+  <div class="kpi-grid" style="margin-bottom:18px">
+    <div class="kpi kv-w" style="animation-delay:.20s">
+      <div class="kpi-top"><div class="kpi-icon">⏳</div><div class="kpi-delta d-neu">▲ 4%</div></div>
+      <div class="kpi-val" data-target="312">0</div>
+      <div class="kpi-label-en en-text">Packages Pending</div>
+      <div class="kpi-label-ar">باقات قيد الانتظار</div>
+    </div>
+    <div class="kpi kv-r" style="animation-delay:.24s">
+      <div class="kpi-top"><div class="kpi-icon">❌</div><div class="kpi-delta d-dn">▼ 9%</div></div>
+      <div class="kpi-val" data-target="148">0</div>
+      <div class="kpi-label-en en-text">Packages Rejected</div>
+      <div class="kpi-label-ar">باقات مرفوضة</div>
+    </div>
+    <div class="kpi kv-t" style="animation-delay:.28s">
+      <div class="kpi-top"><div class="kpi-icon">🏢</div><div class="kpi-delta d-up">↑ 3%</div></div>
+      <div class="kpi-val" data-target="52">0</div>
+      <div class="kpi-label-en en-text">Total DMCs</div>
+      <div class="kpi-label-ar">إجمالي شركات السياحة</div>
+    </div>
+    <div class="kpi kv-r" style="animation-delay:.32s">
+      <div class="kpi-top"><div class="kpi-icon">🔄</div><div class="kpi-delta d-dn">▼ 2%</div></div>
+      <div class="kpi-val" data-target="32" data-fmt="pct">0</div>
+      <div class="kpi-label-en en-text">Cancellation Rate</div>
+      <div class="kpi-label-ar">معدل الإلغاء</div>
+    </div>
+  </div>
+
+  <!-- Total Package Price KPI — Overview -->
+  <div class="kpi-grid" style="margin-bottom:20px">
+    <div class="kpi kv-g" style="animation-delay:.36s">
+      <div class="kpi-top"><div class="kpi-icon">🏷️</div><div class="kpi-delta d-up">↑ 27%</div></div>
+      <div class="kpi-val" data-target="186420000" data-fmt="sar">0</div>
+      <div class="kpi-label-en en-text">Total Package Value (SAR)</div>
+      <div class="kpi-label-ar">إجمالي قيمة الباقات</div>
+    </div>
+    <div class="kpi kv-t" style="animation-delay:.40s">
+      <div class="kpi-top"><div class="kpi-icon">🏨</div><div class="kpi-delta d-up">↑ 23%</div></div>
+      <div class="kpi-val" data-target="93600000" data-fmt="sar">0</div>
+      <div class="kpi-label-en en-text">Total Accommodation Value (SAR)</div>
+      <div class="kpi-label-ar">إجمالي قيمة الإقامة</div>
+    </div>
+    <div class="kpi kv-p" style="animation-delay:.44s">
+      <div class="kpi-top"><div class="kpi-icon">✈️</div><div class="kpi-delta d-up">↑ 18%</div></div>
+      <div class="kpi-val" data-target="74580000" data-fmt="sar">0</div>
+      <div class="kpi-label-en en-text">Total Flight Value (SAR)</div>
+      <div class="kpi-label-ar">إجمالي قيمة تذاكر الطيران</div>
+    </div>
+    <div class="kpi kv-g" style="animation-delay:.48s">
+      <div class="kpi-top"><div class="kpi-icon">📐</div><div class="kpi-delta d-up">↑ 8%</div></div>
+      <div class="kpi-val" data-target="38640" data-fmt="">0</div>
+      <div class="kpi-label-en en-text">Avg. Package Value (SAR)</div>
+      <div class="kpi-label-ar">متوسط قيمة الباقة</div>
+    </div>
+  </div>
+
+  <div class="g32">
+    <div class="card" style="animation-delay:.1s">
+      <div class="card-hdr">
+        <div><div class="card-ttl-en en-text">Package Submissions — Monthly Trend</div><div class="card-ttl-ar">الباقات المقدمة شهرياً — 2026</div></div>
+        <div class="card-badge">2026 YTD</div>
+      </div>
+      <div class="ch-lg"><canvas id="cTimeline"></canvas></div>
+    </div>
+    <div class="card" style="animation-delay:.14s">
+      <div class="card-hdr"><div><div class="card-ttl-en en-text">Package Status Pipeline</div><div class="card-ttl-ar">مسار حالات الباقات</div></div></div>
+      <div class="funnel" id="funnelEl"></div>
+    </div>
+  </div>
+
+  <div class="g2">
+    <div class="card" style="animation-delay:.18s">
+      <div class="card-hdr">
+        <div><div class="card-ttl-en en-text">Top Traveler Nationalities</div><div class="card-ttl-ar">أبرز جنسيات المسافرين</div></div>
+        <div class="card-badge">Top 8</div>
+      </div>
+      <div class="clist" id="clistEl"></div>
+    </div>
+    <div class="card" style="animation-delay:.22s">
+      <div class="card-hdr"><div><div class="card-ttl-en en-text">Packages by City of Stay</div><div class="card-ttl-ar">الباقات حسب مدينة الإقامة</div></div></div>
+      <div class="ch"><canvas id="cCities"></canvas></div>
+    </div>
+  </div>
+
+
+</div>
+
+<!-- ════════ PACKAGES ════════════════════════════════════ -->
+<div id="tab-packages" class="section hidden">
+
+  <!-- ── SECTION: Package Value Summary ──────────────────── -->
+  <div class="sdiv"><span><span class="en-text">Package Value Summary</span><span class="ar-text">ملخص قيم الباقات</span></span></div>
+  <div class="kpi-grid" style="margin-bottom:12px">
+    <div class="kpi kv-g">
+      <div class="kpi-top"><div class="kpi-icon">🏷️</div><div class="kpi-delta d-up">↑ 27%</div></div>
+      <div class="kpi-val" data-target="186420000" data-fmt="sar">0</div>
+      <div class="kpi-label-en en-text">Total Package Value</div>
+      <div class="kpi-label-ar">إجمالي قيمة الباقات</div>
+    </div>
+    <div class="kpi kv-t">
+      <div class="kpi-top"><div class="kpi-icon">🏨</div><div class="kpi-delta d-up">↑ 23%</div></div>
+      <div class="kpi-val" data-target="93600000" data-fmt="sar">0</div>
+      <div class="kpi-label-en en-text">Total Accommodation Value</div>
+      <div class="kpi-label-ar">إجمالي قيمة الإقامة</div>
+    </div>
+    <div class="kpi kv-p">
+      <div class="kpi-top"><div class="kpi-icon">✈️</div><div class="kpi-delta d-up">↑ 18%</div></div>
+      <div class="kpi-val" data-target="74580000" data-fmt="sar">0</div>
+      <div class="kpi-label-en en-text">Total Flight Value</div>
+      <div class="kpi-label-ar">إجمالي قيمة تذاكر الطيران</div>
+    </div>
+    <div class="kpi kv-g">
+      <div class="kpi-top"><div class="kpi-icon">📐</div><div class="kpi-delta d-up">↑ 8%</div></div>
+      <div class="kpi-val" data-target="38640">0</div>
+      <div class="kpi-label-en en-text">Avg. Package Value (SAR)</div>
+      <div class="kpi-label-ar">متوسط قيمة الباقة</div>
+    </div>
+  </div>
+  <div class="kpi-grid" style="margin-bottom:12px">
+    <div class="kpi kv-g">
+      <div class="kpi-top"><div class="kpi-icon">💰</div><div class="kpi-delta d-up">↑ 31%</div></div>
+      <div class="kpi-val" data-target="5204430" data-fmt="sar">0</div>
+      <div class="kpi-label-en en-text">Total Gov. Fees Collected</div>
+      <div class="kpi-label-ar">إجمالي الرسوم الحكومية المحصلة</div>
+    </div>
+    <div class="kpi kv-w">
+      <div class="kpi-top"><div class="kpi-icon">➕</div><div class="kpi-delta d-up">↑ 14%</div></div>
+      <div class="kpi-val">18.2M SAR</div>
+      <div class="kpi-label-en en-text">Other Services Value</div>
+      <div class="kpi-label-ar">قيمة الخدمات الأخرى</div>
+    </div>
+    <div class="kpi kv-t">
+      <div class="kpi-top"><div class="kpi-icon">💳</div><div class="kpi-delta d-up">↑ 8%</div></div>
+      <div class="kpi-val">47</div>
+      <div class="kpi-label-en en-text">Active VCC Cards</div>
+      <div class="kpi-label-ar">بطاقات VCC نشطة</div>
+    </div>
+    <div class="kpi kv-g">
+      <div class="kpi-top"><div class="kpi-icon">📊</div><div class="kpi-delta d-up">↑ 12%</div></div>
+      <div class="kpi-val">434 SAR</div>
+      <div class="kpi-label-en en-text">Avg. Gov. Fees / Package</div>
+      <div class="kpi-label-ar">متوسط الرسوم الحكومية للباقة</div>
+    </div>
+  </div>
+
+  <!-- ── SECTION: Value Composition & Revenue ─────────────── -->
+  <div class="sdiv"><span><span class="en-text">Value Composition & Revenue Trend</span><span class="ar-text">تركيب القيمة والإيرادات</span></span></div>
+  <div class="g2" style="margin-bottom:12px">
+    <div class="card">
+      <div class="card-hdr"><div><div class="card-ttl-en en-text">Package Value Composition — Monthly (SAR)</div><div class="card-ttl-ar">تركيب قيمة الباقات شهرياً</div></div></div>
+      <div class="ch-lg"><canvas id="cPkgComp"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-hdr"><div><div class="card-ttl-en en-text">Value Breakdown by Component</div><div class="card-ttl-ar">توزيع القيمة حسب المكوّن</div></div></div>
+      <div style="height:220px;display:flex;align-items:center;justify-content:center">
+        <canvas id="cPkgBreak" style="max-width:280px;max-height:220px"></canvas>
+      </div>
+    </div>
+  </div>
+  <div class="g32" style="margin-bottom:12px">
+    <div class="card"><div class="card-hdr"><div><div class="card-ttl-en en-text">Revenue Trend — Monthly (SAR)</div><div class="card-ttl-ar">الإيرادات الشهرية</div></div></div><div class="ch-lg"><canvas id="cRev"></canvas></div></div>
+    <div class="card">
+      <div class="card-hdr"><div><div class="card-ttl-en en-text">Government Fees Breakdown</div><div class="card-ttl-ar">تفصيل الرسوم الحكومية</div></div></div>
+      <div class="ftbl-wrap">
+        <table><thead><tr>
+          <th><span class="en-text">Fee Type</span><span class="ar-text">نوع الرسم</span></th>
+          <th><span class="en-text">Per</span><span class="ar-text">لكل</span></th>
+          <th style="text-align:right"><span class="en-text">Collected</span><span class="ar-text">المحصل</span></th>
+        </tr></thead><tbody id="feeTblEl"></tbody></table>
+        <div class="fee-total">
+          <span class="fee-total-lbl"><span class="en-text">Total Collected (YTD)</span><span class="ar-text">الإجمالي</span></span>
+          <span class="fee-total-val">5,204,430 SAR</span>
+        </div>
+      </div>
+      <div style="margin-top:14px"><div class="ch-sm"><canvas id="cFeeBreak"></canvas></div></div>
+    </div>
+  </div>
+
+  <!-- ── SECTION: Package Breakdown Charts ────────────────── -->
+  <div class="sdiv"><span><span class="en-text">Package Breakdown</span><span class="ar-text">تحليل الباقات</span></span></div>
+  <div class="g2" style="margin-bottom:12px">
+    <div class="card">
+      <div class="card-hdr"><div><div class="card-ttl-en en-text">Packages by Hotel</div><div class="card-ttl-ar">الباقات حسب الفندق</div></div></div>
+      <div class="ch-lg"><canvas id="cHotels"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-hdr"><div><div class="card-ttl-en en-text">Packages by Flight Carrier</div><div class="card-ttl-ar">الباقات حسب شركة الطيران</div></div></div>
+      <div class="ch-lg"><canvas id="cCarriers"></canvas></div>
+    </div>
+  </div>
+  <div class="card" style="margin-bottom:12px">
+    <div class="card-hdr">
+      <div><div class="card-ttl-en en-text">Daily Submission Volume</div><div class="card-ttl-ar">حجم الباقات اليومي</div></div>
+      <div class="card-badge en-text">Last 30 days</div>
+    </div>
+    <div class="ch-lg"><canvas id="cDaily"></canvas></div>
+  </div>
+  <div class="g2" style="margin-bottom:12px">
+    <div class="card">
+      <div class="card-hdr"><div><div class="card-ttl-en en-text">Validation Results</div><div class="card-ttl-ar">نتائج التحقق</div></div></div>
+      <div class="val-list" id="valListEl"></div>
+    </div>
+    <div class="card">
+      <div class="card-hdr"><div><div class="card-ttl-en en-text">Rejection Reasons</div><div class="card-ttl-ar">أسباب الرفض</div></div></div>
+      <div class="ch"><canvas id="cReject"></canvas></div>
+    </div>
+  </div>
+
+  <!-- ── SECTION: VCC Health ──────────────────────────────── -->
+  <div class="sdiv"><span><span class="en-text">VCC Card Health Monitor</span><span class="ar-text">مراقبة البطاقات الافتراضية</span></span></div>
+  <div class="card" style="margin-bottom:12px">
+    <div class="card-hdr"><div><div class="card-ttl-en en-text">VCC Card Health Monitor</div><div class="card-ttl-ar">مراقبة البطاقات الافتراضية</div></div></div>
+    <div class="vcc-list" id="vccListEl"></div>
+  </div>
+
+  <!-- ── SECTION: Recent Submissions ─────────────────────── -->
+  <div class="sdiv"><span><span class="en-text">Recent Package Submissions</span><span class="ar-text">آخر الباقات المقدمة</span></span></div>
+  <div class="card">
+    <div class="card-hdr">
+      <div><div class="card-ttl-en en-text">Recent Package Submissions</div><div class="card-ttl-ar">آخر الباقات المقدمة</div></div>
+      <button class="btn-ghost" style="font-size:11px">⬇ <span class="en-text">Export</span><span class="ar-text">تصدير</span></button>
+    </div>
+    <div class="tbl-wrap"><table class="ptbl">
+      <thead><tr>
+        <th><span class="en-text">Package ID</span><span class="ar-text">رقم الباقة</span></th>
+        <th><span class="en-text">DMC</span><span class="ar-text">الشركة</span></th>
+        <th><span class="en-text">Travelers</span><span class="ar-text">المسافرون</span></th>
+        <th><span class="en-text">Nationality</span><span class="ar-text">الجنسية</span></th>
+        <th><span class="en-text">City</span><span class="ar-text">المدينة</span></th>
+        <th><span class="en-text">Hotel</span><span class="ar-text">الفندق</span></th>
+        <th><span class="en-text">★</span><span class="ar-text">★</span></th>
+        <th><span class="en-text">Days</span><span class="ar-text">الأيام</span></th>
+        <th><span class="en-text">Dep. Carrier</span><span class="ar-text">ناقل الذهاب</span></th>
+        <th><span class="en-text">Arr. Carrier</span><span class="ar-text">ناقل العودة</span></th>
+        <th><span class="en-text">Insurer</span><span class="ar-text">شركة التأمين</span></th>
+        <th><span class="en-text">Hotel Price</span><span class="ar-text">سعر الفندق</span></th>
+        <th><span class="en-text">Flight Price</span><span class="ar-text">سعر الطيران</span></th>
+        <th><span class="en-text">Visa Fees</span><span class="ar-text">رسوم التأشيرة</span></th>
+        <th><span class="en-text">Processing Fees</span><span class="ar-text">رسوم المعالجة</span></th>
+        <th><span class="en-text">Insurance Fees</span><span class="ar-text">رسوم التأمين</span></th>
+        <th><span class="en-text">Gov. Fees</span><span class="ar-text">الرسوم الكلية</span></th>
+        <th><span class="en-text">Package Value</span><span class="ar-text">قيمة الباقة</span></th>
+        <th><span class="en-text">Status</span><span class="ar-text">الحالة</span></th>
+        <th><span class="en-text">Date</span><span class="ar-text">التاريخ</span></th>
+      </tr></thead>
+      <tbody id="pkgTblEl"></tbody>
+    </table></div>
+  </div>
+</div>
+
+<!-- ════════ VISA & INSURANCE ════════════════════════════ -->
+<div id="tab-visa-ins" class="section hidden">
+  <div class="g3" style="margin-bottom:12px">
+    <div class="kpi kv-t"><div class="kpi-top"><div class="kpi-icon">🛂</div><div class="kpi-delta d-up">↑ 22%</div></div><div class="kpi-val">11,243</div><div class="kpi-label-en en-text">Visas Issued (MOFA)</div><div class="kpi-label-ar">تأشيرات صادرة</div></div>
+    <div class="kpi kv-p"><div class="kpi-top"><div class="kpi-icon">🛡️</div><div class="kpi-delta d-up">↑ 19%</div></div><div class="kpi-val">10,918</div><div class="kpi-label-en en-text">Insurance Policies (IA)</div><div class="kpi-label-ar">وثائق تأمين</div></div>
+    <div class="kpi kv-w"><div class="kpi-top"><div class="kpi-icon">⏳</div><div class="kpi-delta d-neu">▲ 3%</div></div><div class="kpi-val">520</div><div class="kpi-label-en en-text">Visa Issuance Pending</div><div class="kpi-label-ar">تأشيرات معلقة</div></div>
+  </div>
+  <div class="g2">
+    <div class="card"><div class="card-hdr"><div><div class="card-ttl-en en-text">Visa Issuance — Monthly</div><div class="card-ttl-ar">إصدار التأشيرات شهرياً</div></div></div><div class="ch-lg"><canvas id="cVisaMon"></canvas></div></div>
+    <div class="card"><div class="card-hdr"><div><div class="card-ttl-en en-text">Visa Duration Distribution</div><div class="card-ttl-ar">توزيع مدة التأشيرة</div></div></div>
+      <div style="height:200px;display:flex;align-items:center;justify-content:center"><canvas id="cVisaDur" style="max-width:220px;max-height:200px"></canvas></div>
+    </div>
+  </div>
+  <div class="g2">
+    <div class="card"><div class="card-hdr"><div><div class="card-ttl-en en-text">MOFA Integration Status</div><div class="card-ttl-ar">التكامل مع الخارجية</div></div></div><div class="hbl" id="mofaEl"></div></div>
+    <div class="card"><div class="card-hdr"><div><div class="card-ttl-en en-text">Insurance Authority Status</div><div class="card-ttl-ar">التكامل مع هيئة التأمين</div></div></div><div class="hbl" id="iaEl"></div></div>
+  </div>
+  <div class="g2">
+    <div class="card">
+      <div class="card-hdr">
+        <div><div class="card-ttl-en en-text">Insurance Policies by Company</div><div class="card-ttl-ar">وثائق التأمين حسب الشركة</div></div>
+        <div class="card-badge">10,918 policies</div>
+      </div>
+      <div class="ch-lg"><canvas id="cInsurers"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-hdr">
+        <div><div class="card-ttl-en en-text">Insurer Performance — Policies Issued</div><div class="card-ttl-ar">أداء شركات التأمين</div></div>
+      </div>
+      <div class="hbl" id="insurerHblEl"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ DMC ══════════════════════════════════════════ -->
+<div id="tab-dmc" class="section hidden">
+
+  <!-- KPI summary row -->
+  <div class="kpi-grid" style="margin-bottom:12px">
+    <div class="kpi kv-t">
+      <div class="kpi-top"><div class="kpi-icon">✅</div><div class="kpi-delta d-up">↑ 5%</div></div>
+      <div class="kpi-val">47</div>
+      <div class="kpi-label-en en-text">Active DMCs</div>
+      <div class="kpi-label-ar">شركات سياحة نشطة</div>
+    </div>
+    <div class="kpi kv-r">
+      <div class="kpi-top"><div class="kpi-icon">🚫</div><div class="kpi-delta d-dn">↑ 2</div></div>
+      <div class="kpi-val">5</div>
+      <div class="kpi-label-en en-text">Inactive DMCs</div>
+      <div class="kpi-label-ar">شركات سياحة غير نشطة</div>
+    </div>
+    <div class="kpi kv-g">
+      <div class="kpi-top"><div class="kpi-icon">📦</div><div class="kpi-delta d-up">↑ 12%</div></div>
+      <div class="kpi-val">4,827</div>
+      <div class="kpi-label-en en-text">Total Packages (Active DMCs)</div>
+      <div class="kpi-label-ar">إجمالي الباقات</div>
+    </div>
+    <div class="kpi kv-g">
+      <div class="kpi-top"><div class="kpi-icon">💰</div><div class="kpi-delta d-up">↑ 18%</div></div>
+      <div class="kpi-val">5.33M SAR</div>
+      <div class="kpi-label-en en-text">Total Revenue (Active DMCs)</div>
+      <div class="kpi-label-ar">إجمالي الإيرادات</div>
+    </div>
+  </div>
+
+  <!-- Charts row -->
+  <div class="g23" style="margin-bottom:12px">
+    <div class="card"><div class="card-hdr"><div><div class="card-ttl-en en-text">DMC Leaderboard</div><div class="card-ttl-ar">تصنيف الشركات</div></div><div class="card-badge">Top 7</div></div><div class="dmc-list" id="dmcListEl"></div></div>
+    <div class="card"><div class="card-hdr"><div><div class="card-ttl-en en-text">Packages by DMC</div><div class="card-ttl-ar">الباقات حسب الشركة</div></div></div><div class="ch-lg"><canvas id="cDmcPkg"></canvas></div></div>
+  </div>
+  <div class="g2" style="margin-bottom:12px">
+    <div class="card"><div class="card-hdr"><div><div class="card-ttl-en en-text">Completion Rate by DMC</div><div class="card-ttl-ar">معدل الإكمال</div></div></div><div class="hbl" id="dmcCompEl"></div></div>
+    <div class="card"><div class="card-hdr"><div><div class="card-ttl-en en-text">Revenue Contribution</div><div class="card-ttl-ar">الإيرادات حسب الشركة</div></div></div><div class="ch"><canvas id="cDmcRev"></canvas></div></div>
+  </div>
+
+  <!-- Active DMCs full detail table -->
+  <div class="sdiv"><span><span class="en-text">Active DMCs — Full Details</span><span class="ar-text">الشركات النشطة — تفاصيل كاملة</span></span></div>
+  <div class="card" style="margin-bottom:12px">
+    <div class="card-hdr">
+      <div><div class="card-ttl-en en-text">Active DMC Registry</div><div class="card-ttl-ar">سجل الشركات النشطة</div></div>
+      <div class="card-badge">47 active</div>
+    </div>
+    <div class="tbl-wrap">
+      <table class="ptbl">
+        <thead><tr>
+          <th><span class="en-text">Rank</span><span class="ar-text">الترتيب</span></th>
+          <th><span class="en-text">DMC Name</span><span class="ar-text">الشركة</span></th>
+          <th><span class="en-text">City</span><span class="ar-text">المدينة</span></th>
+          <th><span class="en-text">Packages</span><span class="ar-text">الباقات</span></th>
+          <th><span class="en-text">Completed</span><span class="ar-text">مكتملة</span></th>
+          <th><span class="en-text">Completion %</span><span class="ar-text">نسبة الإكمال</span></th>
+          <th><span class="en-text">Revenue (SAR)</span><span class="ar-text">الإيرادات</span></th>
+          <th><span class="en-text">Status</span><span class="ar-text">الحالة</span></th>
+        </tr></thead>
+        <tbody id="activeDmcTblEl"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Inactive DMCs full detail table -->
+  <div class="sdiv"><span><span class="en-text">Inactive DMCs — Requires Attention</span><span class="ar-text">الشركات غير النشطة — تحتاج متابعة</span></span></div>
+  <div class="card">
+    <div class="card-hdr">
+      <div><div class="card-ttl-en en-text">Inactive DMC Registry</div><div class="card-ttl-ar">سجل الشركات غير النشطة</div></div>
+      <div class="card-badge" style="background:rgba(184,50,50,0.08);color:var(--s-danger);border-color:rgba(184,50,50,0.18)">5 inactive</div>
+    </div>
+    <div class="tbl-wrap">
+      <table class="ptbl">
+        <thead><tr>
+          <th><span class="en-text">DMC Name</span><span class="ar-text">الشركة</span></th>
+          <th><span class="en-text">City</span><span class="ar-text">المدينة</span></th>
+          <th><span class="en-text">Last Active Packages</span><span class="ar-text">آخر باقاتها</span></th>
+          <th><span class="en-text">Last Revenue (SAR)</span><span class="ar-text">آخر إيرادات</span></th>
+          <th><span class="en-text">Reason for Inactivity</span><span class="ar-text">سبب التوقف</span></th>
+          <th><span class="en-text">Inactive Since</span><span class="ar-text">منذ</span></th>
+          <th><span class="en-text">Action Required</span><span class="ar-text">الإجراء المطلوب</span></th>
+          <th><span class="en-text">Status</span><span class="ar-text">الحالة</span></th>
+        </tr></thead>
+        <tbody id="inactiveDmcTblEl"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ ENTRY & CANCELLATIONS ═══════════════════════ -->
+<div id="tab-moi" class="section hidden">
+  <div class="sdiv"><span><span class="en-text">Entry & Exit — MOI</span><span class="ar-text">الدخول والخروج</span></span></div>
+  <div class="kpi-grid" style="margin-bottom:12px">
+    <div class="kpi kv-g"><div class="kpi-top"><div class="kpi-icon">✈️</div><div class="kpi-delta d-up">↑ 24%</div></div><div class="kpi-val">9,840</div><div class="kpi-label-en en-text">Travelers Entered KSA</div><div class="kpi-label-ar">دخلوا المملكة</div></div>
+    <div class="kpi kv-t"><div class="kpi-top"><div class="kpi-icon">🛫</div><div class="kpi-delta d-up">↑ 21%</div></div><div class="kpi-val">8,210</div><div class="kpi-label-en en-text">Travelers Exited KSA</div><div class="kpi-label-ar">غادروا المملكة</div></div>
+    <div class="kpi kv-w"><div class="kpi-top"><div class="kpi-icon">🏨</div></div><div class="kpi-val">1,630</div><div class="kpi-label-en en-text">Currently In-Country</div><div class="kpi-label-ar">داخل المملكة</div></div>
+    <div class="kpi kv-r"><div class="kpi-top"><div class="kpi-icon">⚠️</div><div class="kpi-delta d-dn">↑ 2</div></div><div class="kpi-val">12</div><div class="kpi-label-en en-text">Overstay Alerts</div><div class="kpi-label-ar">تنبيهات تجاوز المدة</div></div>
+  </div>
+  <div class="g2" style="margin-bottom:12px">
+    <div class="card"><div class="card-hdr"><div><div class="card-ttl-en en-text">Entry by Port</div><div class="card-ttl-ar">الدخول حسب المنفذ</div></div></div><div class="ch"><canvas id="cPort"></canvas></div></div>
+    <div class="card"><div class="card-hdr"><div><div class="card-ttl-en en-text">Entry vs Exit — Weekly</div><div class="card-ttl-ar">الدخول مقابل الخروج</div></div></div><div class="ch"><canvas id="cFlow"></canvas></div></div>
+  </div>
+
+  <!-- ── OVERSTAY DETAILS ──────────────────────────────── -->
+  <div class="sdiv overstay-sdiv" style="display:flex;align-items:center;justify-content:space-between">
+    <span>
+      <span class="en-text">⚠️  Overstay Alert Details — Action Required</span>
+      <span class="ar-text">⚠️  تفاصيل تنبيهات تجاوز المدة — إجراء مطلوب</span>
+    </span>
+    <div style="display:flex;gap:8px">
+      <button onclick="exportOverstayCSV()" class="os-export-btn">
+        <span class="en-text">⬇ Export CSV</span>
+        <span class="ar-text">⬇ تصدير CSV</span>
+      </button>
+      <button onclick="exportOverstayExcel()" class="os-export-btn os-export-xl">
+        <span class="en-text">⬇ Export Excel</span>
+        <span class="ar-text">⬇ تصدير Excel</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="overstay-bar" style="margin-bottom:12px">
+    <div class="overstay-stat">
+      <span class="os-val" id="osTotalTrav">—</span>
+      <span class="os-lbl en-text">Travelers Overstaying</span>
+      <span class="os-lbl ar-text">مسافرون تجاوزوا المدة</span>
+    </div>
+    <div class="overstay-stat">
+      <span class="os-val" id="osTotalPkg">—</span>
+      <span class="os-lbl en-text">Packages Affected</span>
+      <span class="os-lbl ar-text">باقات متأثرة</span>
+    </div>
+    <div class="overstay-stat">
+      <span class="os-val" id="osTotalDmc">—</span>
+      <span class="os-lbl en-text">DMCs to Contact</span>
+      <span class="os-lbl ar-text">شركات يجب التواصل معها</span>
+    </div>
+    <div class="overstay-stat">
+      <span class="os-val" id="osMaxDays">—</span>
+      <span class="os-lbl en-text">Max Days Overstayed</span>
+      <span class="os-lbl ar-text">أقصى أيام تجاوز</span>
+    </div>
+  </div>
+
+  <div id="overstayListEl"></div>
+  <div class="sdiv"><span><span class="en-text">Cancellation Analytics</span><span class="ar-text">تحليلات الإلغاء</span></span></div>
+  <div class="kpi-grid" style="margin-bottom:12px">
+    <div class="kpi kv-p"><div class="kpi-top"><div class="kpi-icon">📦</div></div><div class="kpi-val">87</div><div class="kpi-label-en en-text">Package Cancellations</div><div class="kpi-label-ar">إلغاء باقات</div></div>
+    <div class="kpi kv-w"><div class="kpi-top"><div class="kpi-icon">🧍</div></div><div class="kpi-val">69</div><div class="kpi-label-en en-text">Traveler Cancellations</div><div class="kpi-label-ar">إلغاء مسافرين</div></div>
+    <div class="kpi kv-r"><div class="kpi-top"><div class="kpi-icon">📉</div></div><div class="kpi-val">3.2%</div><div class="kpi-label-en en-text">Overall Cancel Rate</div><div class="kpi-label-ar">معدل الإلغاء</div></div>
+    <div class="kpi kv-t"><div class="kpi-top"><div class="kpi-icon">⏱️</div></div><div class="kpi-val">14h</div><div class="kpi-label-en en-text">Avg. Cancel Time</div><div class="kpi-label-ar">متوسط وقت الإلغاء</div></div>
+  </div>
+  <div class="g2">
+    <div class="card"><div class="card-hdr"><div><div class="card-ttl-en en-text">Cancellation Reasons</div><div class="card-ttl-ar">أسباب الإلغاء</div></div></div><div class="hbl" id="cancelEl"></div></div>
+    <div class="card"><div class="card-hdr"><div><div class="card-ttl-en en-text">Cancellation Trend — Monthly</div><div class="card-ttl-ar">اتجاه الإلغاء الشهري</div></div></div><div class="ch"><canvas id="cCancel"></canvas></div></div>
+  </div>
+</div>
+
+</main>
+
+<script>
+/* ── BRAND PALETTE ─────────────────────────────── */
+const B = {
+  g1:'#0C4B3A', g2:'#1A6854', g3:'#2E8B72',
+  t1:'#1B6E62', t2:'#1E8070', t3:'#2E9D8A',
+  p1:'#4A2880', p2:'#6B3FA0', p3:'#9068C0',
+  w:'#B56A00',  r:'#B83232',  i:'#1A5490',
+  ga:'rgba(12,75,58,',   ta:'rgba(30,128,112,',
+  pa:'rgba(107,63,160,', wa:'rgba(181,106,0,',
+};
+const al = (hex, a) => hex.replace(')',`${a})`).replace('rgba(','').replace(/(#[\da-f]{6})/i, (m,c)=>{
+  const r=parseInt(c.slice(1,3),16), g=parseInt(c.slice(3,5),16), b=parseInt(c.slice(5,7),16);
+  return `rgba(${r},${g},${b},`;
+}) + a + ')';
+
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+/* ── DATA ──────────────────────────────────────── */
+const D = {
+  timeline:{
+    sub:[0,210,380,490,620,710,840,920,760,810,690,397],
+    com:[0,148,310,420,540,620,750,840,680,730,590,310],
+  },
+  statuses:[
+    {en:'Completed',  ar:'مكتملة',         n:3241,pct:67,c:B.g1},
+    {en:'Processing', ar:'قيد المعالجة',   n:701, pct:15,c:B.i},
+    {en:'Fees Paid',  ar:'تم سداد الرسوم', n:312, pct:6, c:B.t2},
+    {en:'Validated',  ar:'تم التحقق',      n:225, pct:5, c:B.t3},
+    {en:'Received',   ar:'مستلمة',         n:200, pct:4, c:B.w},
+    {en:'Rejected',   ar:'مرفوضة',         n:148, pct:3, c:B.r},
+  ],
+  countries:[
+    {flag:'🇮🇳',en:'India',          ar:'الهند',           n:3210,pct:29},
+    {flag:'🇵🇰',en:'Pakistan',       ar:'باكستان',         n:2180,pct:19},
+    {flag:'🇮🇩',en:'Indonesia',      ar:'إندونيسيا',       n:1740,pct:15},
+    {flag:'🇪🇬',en:'Egypt',          ar:'مصر',             n:1120,pct:10},
+    {flag:'🇬🇧',en:'United Kingdom', ar:'المملكة المتحدة', n:820, pct:7},
+    {flag:'🇺🇸',en:'United States',  ar:'الولايات المتحدة',n:680, pct:6},
+    {flag:'🇲🇾',en:'Malaysia',       ar:'ماليزيا',         n:540, pct:5},
+    {flag:'🇧🇩',en:'Bangladesh',     ar:'بنغلاديش',        n:420, pct:4},
+  ],
+  cities:{
+    labels:['Riyadh','Jeddah','AlUla','Abha','Taif','Dammam'],
+    vals:[38,27,14,11,6,4],
+    cols:[B.g1,B.t2,B.p2,B.w,B.i,B.r],
+  },
+  fees:[
+    {en:'Visa Issuance Fee',    ar:'رسم إصدار التأشيرة',  per:'Traveler',tot:'3,372,900'},
+    {en:'Insurance Policy Fee', ar:'رسم وثيقة التأمين',   per:'Traveler',tot:'1,037,210'},
+    {en:'Visa Processing Fee',  ar:'رسم معالجة التأشيرة', per:'Traveler',tot:'438,477'},
+    {en:'Ministry Admin Fee',   ar:'رسم وزارة السياحة',   per:'Package', tot:'0'},
+  ],
+  dmcs:[
+    {n:'Almosafer Travel',sub:'Riyadh', pkgs:847,done:811,rev:'1.24M',active:true},
+    {n:'Seera Group',     sub:'Riyadh', pkgs:712,done:698,rev:'1.04M',active:true},
+    {n:'Wego',            sub:'Riyadh', pkgs:634,done:601,rev:'0.93M',active:true},
+    {n:'Tajawal',         sub:'Jeddah', pkgs:521,done:499,rev:'0.76M',active:true},
+    {n:'Flyin.com',       sub:'Jeddah', pkgs:418,done:390,rev:'0.61M',active:true},
+    {n:'Al Tayyar Group', sub:'Riyadh', pkgs:312,done:298,rev:'0.46M',active:true},
+    {n:'Abercrombie KSA', sub:'AlUla',  pkgs:201,done:187,rev:'0.29M',active:true},
+  ],
+  inactiveDmcs:[
+    {n:'Arabian Horizons',  sub:'Jeddah', pkgs:38, rev:'0.056M', reason:'VCC expired',            since:'2026-02-14', action:'Renew VCC via HyperPay'},
+    {n:'Nusuk Travel',      sub:'Riyadh', pkgs:21, rev:'0.031M', reason:'API integration failed', since:'2026-02-28', action:'Contact technical support'},
+    {n:'GulfTours KSA',     sub:'Dammam', pkgs:14, rev:'0.020M', reason:'License renewal pending',since:'2026-03-01', action:'Submit renewed MoT license'},
+    {n:'Rawafed Travel',    sub:'Taif',   pkgs:9,  rev:'0.013M', reason:'Account suspended',      since:'2026-03-05', action:'Resolve compliance issue'},
+    {n:'Dar Al-Salam Tours',sub:'Abha',   pkgs:6,  rev:'0.009M', reason:'VCC expired',            since:'2026-03-08', action:'Renew VCC via HyperPay'},
+  ],
+  pkgs:[
+    {id:'PKG-2026-004827',dmc:'Almosafer',  n:4,nat:'Indian',    city:'Riyadh',s:5,d:7, hotelP:'14,800',flightP:'9,200', visaF:'1,200',procF:'157',insF:'380', val:'28,400',fee:'1,736',st:'completed', dt:'2026-03-10',hotel:'Ritz-Carlton Riyadh',   dep:'Saudia (SV)',    arr:'Saudia (SV)',   ins:'Tawuniya'},
+    {id:'PKG-2026-004826',dmc:'Wego',       n:2,nat:'Indonesian',city:'AlUla', s:5,d:10,hotelP:'7,400', flightP:'4,800', visaF:'600',  procF:'79', insF:'190', val:'14,200',fee:'868',  st:'processing', dt:'2026-03-10',hotel:'Rosewood AlUla',        dep:'Emirates (EK)',  arr:'Emirates (EK)', ins:'Bupa Arabia'},
+    {id:'PKG-2026-004825',dmc:'Seera Group',n:6,nat:'Pakistani', city:'Jeddah',s:4,d:14,hotelP:'21,600',flightP:'14,400',visaF:'1,800',procF:'236',insF:'570', val:'42,600',fee:'2,604',st:'completed', dt:'2026-03-09',hotel:'Four Seasons Jeddah',    dep:'flynas (XY)',    arr:'Saudia (SV)',   ins:'MedGulf'},
+    {id:'PKG-2026-004824',dmc:'Tajawal',    n:3,nat:'Egyptian',  city:'Abha',  s:4,d:7, hotelP:'9,200', flightP:'5,600', visaF:'900',  procF:'118',insF:'285', val:'18,000',fee:'1,302',st:'validated', dt:'2026-03-09',hotel:'InterContinental Abha', dep:'Qatar Airways',  arr:'flyadeal (F3)', ins:'Walaa Insurance'},
+    {id:'PKG-2026-004823',dmc:'Flyin.com',  n:1,nat:'British',   city:'Riyadh',s:5,d:5, hotelP:'3,200', flightP:'2,400', visaF:'300',  procF:'39', insF:'95',  val:'7,200', fee:'434',  st:'paid',       dt:'2026-03-08',hotel:'Fairmont Riyadh',       dep:'British Airways',arr:'Saudia (SV)',   ins:'Tawuniya'},
+    {id:'PKG-2026-004822',dmc:'Almosafer',  n:5,nat:'Malaysian', city:'Taif',  s:4,d:14,hotelP:'16,800',flightP:'11,200',visaF:'1,500',procF:'197',insF:'475', val:'32,500',fee:'2,170',st:'completed', dt:'2026-03-08',hotel:'Marriott Riyadh',        dep:'Malaysia AL',    arr:'flynas (XY)',   ins:'GIG Gulf'},
+    {id:'PKG-2026-004821',dmc:'Al Tayyar', n:2,nat:'American',  city:'Riyadh',s:5,d:3, hotelP:'7,200', flightP:'6,800', visaF:'600',  procF:'79', insF:'190', val:'16,000',fee:'868',  st:'rejected',   dt:'2026-03-07',hotel:'Hilton Riyadh',          dep:'United (UA)',    arr:'Saudia (SV)',   ins:'Tawuniya'},
+    {id:'PKG-2026-004820',dmc:'Seera Group',n:4,nat:'Bangladeshi',city:'Dammam',s:4,d:7,hotelP:'11,400',flightP:'7,800', visaF:'1,200',procF:'157',insF:'380', val:'24,000',fee:'1,736',st:'cancelled',  dt:'2026-03-07',hotel:'Park Hyatt Jeddah',      dep:'Biman (BG)',     arr:'flynas (XY)',   ins:'MedGulf'},
+    {id:'PKG-2026-004819',dmc:'Wego',       n:3,nat:'Indian',    city:'Jeddah',s:5,d:10,hotelP:'10,200',flightP:'6,600', visaF:'900',  procF:'118',insF:'285', val:'19,800',fee:'1,302',st:'completed', dt:'2026-03-06',hotel:'Hyatt Regency Jeddah',   dep:'Air India (AI)', arr:'Emirates (EK)', ins:'Bupa Arabia'},
+    {id:'PKG-2026-004818',dmc:'Tajawal',    n:2,nat:'Pakistani', city:'AlUla', s:4,d:21,hotelP:'5,800', flightP:'3,400', visaF:'600',  procF:'79', insF:'190', val:'11,400',fee:'868',  st:'processing', dt:'2026-03-06',hotel:'Anantara AlUla',         dep:'Turkish (TK)',   arr:'Saudia (SV)',   ins:'Al-Etihad Coop.'},
+  ],
+  vcc:[
+    {en:'Active VCC Cards',        ar:'بطاقات نشطة',        v:41,   c:B.g1},
+    {en:'Expiring within 60 days', ar:'تنتهي خلال 60 يوم',  v:6,    c:B.w},
+    {en:'Expired / Removed',       ar:'منتهية / محذوفة',    v:3,    c:B.r},
+    {en:'Failed Transactions',     ar:'معاملات فاشلة',       v:8,    c:B.p2},
+    {en:'Successful Payments YTD', ar:'مدفوعات ناجحة',       v:4791, c:B.t2},
+  ],
+  validations:[
+    {icon:'✅',en:'Passed All Validations',   ar:'اجتاز التحقق كاملاً', n:3578,c:B.g1},
+    {icon:'⚠️',en:'Corrected & Resubmitted', ar:'صُحح وأُعيد تقديمه',  n:901, c:B.w},
+    {icon:'❌',en:'Rejected — Not Corrected', ar:'مرفوض — لم يُصحح',    n:148, c:B.r},
+    {icon:'⏳',en:'Pending Validation',       ar:'في انتظار التحقق',     n:200, c:B.i},
+  ],
+  cancelR:[
+    {en:'Traveler request',      ar:'طلب المسافر',     pct:42,c:B.p2},
+    {en:'Visa rejected by MOFA', ar:'رفض التأشيرة',    pct:28,c:B.r},
+    {en:'MOFA integration error',ar:'خطأ تقني',        pct:18,c:B.w},
+    {en:'Insurance failure (IA)',ar:'فشل التأمين',      pct:12,c:B.i},
+  ],
+  overstays:[
+    {pkgId:'PKG-2026-003841',dmc:'Almosafer Travel',  dmcPhone:'+966-11-234-5678',dmcEmail:'ops@almosafer.com',
+     travelers:[
+       {id:'TRV-2026-019201',name:'Ravi Kumar',       nat:'🇮🇳 Indian',   passport:'K8821045',entry:'2026-02-10',visaExp:'2026-02-25',overDays:13},
+       {id:'TRV-2026-019202',name:'Priya Kumar',      nat:'🇮🇳 Indian',   passport:'K8821046',entry:'2026-02-10',visaExp:'2026-02-25',overDays:13},
+     ],
+     city:'Riyadh',hotel:'Ritz-Carlton Riyadh',visaType:'15-day'},
+    {pkgId:'PKG-2026-003614',dmc:'Wego',              dmcPhone:'+966-11-876-5432',dmcEmail:'support@wego.com',
+     travelers:[
+       {id:'TRV-2026-017801',name:'Ahmad Fauzi',      nat:'🇮🇩 Indonesian',passport:'A7741209',entry:'2026-02-18',visaExp:'2026-03-05',overDays:7},
+     ],
+     city:'Jeddah',hotel:'Hyatt Regency Jeddah',visaType:'15-day'},
+    {pkgId:'PKG-2026-003502',dmc:'Seera Group',       dmcPhone:'+966-11-345-6789',dmcEmail:'operations@seera.sa',
+     travelers:[
+       {id:'TRV-2026-016901',name:'Muhammad Tariq',   nat:'🇵🇰 Pakistani', passport:'BP4421901',entry:'2026-02-20',visaExp:'2026-03-07',overDays:5},
+       {id:'TRV-2026-016902',name:'Fatima Tariq',     nat:'🇵🇰 Pakistani', passport:'BP4421902',entry:'2026-02-20',visaExp:'2026-03-07',overDays:5},
+       {id:'TRV-2026-016903',name:'Zain Tariq',       nat:'🇵🇰 Pakistani', passport:'BP4421903',entry:'2026-02-20',visaExp:'2026-03-07',overDays:5},
+     ],
+     city:'Jeddah',hotel:'Four Seasons Jeddah',visaType:'15-day'},
+    {pkgId:'PKG-2026-003388',dmc:'Tajawal',           dmcPhone:'+966-12-567-8901',dmcEmail:'help@tajawal.com',
+     travelers:[
+       {id:'TRV-2026-015401',name:'Omar Hassan',      nat:'🇪🇬 Egyptian',  passport:'A09821334',entry:'2026-02-22',visaExp:'2026-03-09',overDays:3},
+     ],
+     city:'Abha',hotel:'InterContinental Abha',visaType:'15-day'},
+    {pkgId:'PKG-2026-003201',dmc:'Flyin.com',         dmcPhone:'+966-12-678-9012',dmcEmail:'ops@flyin.com',
+     travelers:[
+       {id:'TRV-2026-014101',name:'James Wilson',     nat:'🇬🇧 British',   passport:'531274018',entry:'2026-02-25',visaExp:'2026-03-11',overDays:1},
+       {id:'TRV-2026-014102',name:'Sarah Wilson',     nat:'🇬🇧 British',   passport:'531274019',entry:'2026-02-25',visaExp:'2026-03-11',overDays:1},
+     ],
+     city:'Riyadh',hotel:'Fairmont Riyadh',visaType:'15-day'},
+    {pkgId:'PKG-2026-002974',dmc:'Al Tayyar Group',   dmcPhone:'+966-11-789-0123',dmcEmail:'contact@altayyar.com',
+     travelers:[
+       {id:'TRV-2026-012801',name:'Karim El-Sayed',   nat:'🇪🇬 Egyptian',  passport:'A08712290',entry:'2026-02-01',visaExp:'2026-03-03',overDays:9},
+       {id:'TRV-2026-012802',name:'Nour El-Sayed',    nat:'🇪🇬 Egyptian',  passport:'A08712291',entry:'2026-02-01',visaExp:'2026-03-03',overDays:9},
+       {id:'TRV-2026-012803',name:'Lina El-Sayed',    nat:'🇪🇬 Egyptian',  passport:'A08712292',entry:'2026-02-01',visaExp:'2026-03-03',overDays:9},
+       {id:'TRV-2026-012804',name:'Yassin El-Sayed',  nat:'🇪🇬 Egyptian',  passport:'A08712293',entry:'2026-02-01',visaExp:'2026-03-03',overDays:9},
+     ],
+     city:'Dammam',hotel:'Radisson Dammam',visaType:'30-day'},
+  ],
+  mofa:[
+    {en:'Submitted to MOFA',pct:92,c:B.g1},
+    {en:'Visa Issued',      pct:89,c:B.t2},
+    {en:'Visa Pending',     pct:7, c:B.w},
+    {en:'Visa Rejected',    pct:4, c:B.r},
+  ],
+  ia:[
+    {en:'Submitted to IA',pct:91,c:B.g1},
+    {en:'Policy Issued',   pct:87,c:B.t2},
+    {en:'Policy Pending',  pct:8, c:B.w},
+    {en:'Policy Failed',   pct:5, c:B.r},
+  ],
+  hotels:[
+    {n:'Ritz-Carlton Riyadh',       pkgs:412},
+    {n:'Rosewood AlUla',             pkgs:388},
+    {n:'Four Seasons Jeddah',        pkgs:354},
+    {n:'Park Hyatt Jeddah',          pkgs:301},
+    {n:'Marriott Riyadh',            pkgs:278},
+    {n:'Hilton Riyadh',              pkgs:241},
+    {n:'Anantara AlUla',             pkgs:219},
+    {n:'Fairmont Riyadh',            pkgs:198},
+    {n:'InterContinental Abha',      pkgs:175},
+    {n:'Hyatt Regency Jeddah',       pkgs:161},
+  ],
+  carriers:[
+    {n:'Saudia (SV)',    pkgs:1842},
+    {n:'flynas (XY)',    pkgs:976},
+    {n:'Emirates (EK)',  pkgs:621},
+    {n:'Qatar Airways (QR)', pkgs:504},
+    {n:'flyadeal (F3)', pkgs:398},
+    {n:'Turkish Airlines (TK)', pkgs:284},
+    {n:'Air Arabia (G9)', pkgs:202},
+  ],
+  insurers:[
+    {n:'Tawuniya',          ar:'التعاونية',         policies:3210, pct:29},
+    {n:'Bupa Arabia',       ar:'بوبا العربية',       policies:2640, pct:24},
+    {n:'MedGulf',           ar:'ميدغلف',             policies:1965, pct:18},
+    {n:'Walaa Insurance',   ar:'ولاء للتأمين',       policies:1530, pct:14},
+    {n:'GIG Gulf',          ar:'جي آي جي الخليج',    policies:874,  pct:8},
+    {n:'Al-Etihad Cooperative', ar:'الاتحاد التعاونية', policies:699, pct:6},
+  ],
+  pkgComp:{
+    accom:[0,18200,34100,42600,53800,62400,73800,82400,67200,71400,60800,34400],
+    flight:[0,14500,27200,33900,43000,49800,58900,65800,53700,57000,48500,27400],
+    other:[0,3600,6700,8400,10600,12300,14500,16200,13200,14100,12000,6800],
+  },
+};
+
+/* ── CHART DEFAULTS ────────────────────────────── */
+Chart.defaults.color = '#7A9E92';
+Chart.defaults.font.family = "'IBM Plex Sans',sans-serif";
+Chart.defaults.font.size = 11;
+Chart.defaults.plugins.legend.display = false;
+const GR = {color:'rgba(12,75,58,.07)',lineWidth:1};
+const TK = {color:'#7A9E92'};
+const BD = {display:false};
+const TT = {backgroundColor:'#0A2218',borderColor:'rgba(12,75,58,.25)',borderWidth:1,
+            titleColor:'#fff',bodyColor:'rgba(255,255,255,.8)',padding:10,cornerRadius:6};
+const charts={};
+const dc=id=>{if(charts[id]){charts[id].destroy();delete charts[id];}};
+
+/* ── COUNTER ANIMATION ─────────────────────────── */
+function animKpi(el){
+  const t=parseInt(el.dataset.target), fmt=el.dataset.fmt;
+  const dur=1300, s=performance.now();
+  const tick=now=>{
+    const p=Math.min((now-s)/dur,1), e=1-Math.pow(1-p,3), v=Math.round(t*e);
+    if(fmt==='sar') el.textContent=v>=1e6?(v/1e6).toFixed(1)+'M SAR':v.toLocaleString();
+    else if(fmt==='pct') el.textContent=(v/10).toFixed(1)+'%';
+    else el.textContent=v.toLocaleString();
+    if(p<1)requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
+
+/* ── STATIC RENDERS ────────────────────────────── */
+function renderFunnel(){
+  const el=document.getElementById('funnelEl');if(!el)return;
+  el.innerHTML=D.statuses.map(s=>`
+    <div class="funnel-row">
+      <div class="funnel-st"><div class="funnel-en" style="color:${s.c}">${s.en}</div><div class="funnel-ar">${s.ar}</div></div>
+      <div class="funnel-track"><div class="funnel-bar" style="width:${s.pct}%;background:${s.c}"></div></div>
+      <div class="funnel-n" style="color:${s.c}">${s.n.toLocaleString()}</div>
+      <div class="funnel-pct">${s.pct}%</div>
+    </div>`).join('');
+}
+
+function renderCountries(){
+  const el=document.getElementById('clistEl');if(!el)return;
+  const mx=D.countries[0].n;
+  el.innerHTML=D.countries.map(c=>`
+    <div class="crow">
+      <div class="crow-flag">${c.flag}</div>
+      <div class="crow-name"><span class="en-text">${c.en}</span><span class="ar-text">${c.ar}</span></div>
+      <div class="crow-bar"><div class="crow-fill" style="width:${Math.round(c.n/mx*100)}%;background:${B.g1}"></div></div>
+      <div class="crow-n">${c.n.toLocaleString()}</div>
+    </div>`).join('');
+}
+
+function renderHbl(id,data){
+  const el=document.getElementById(id);if(!el)return;
+  const mx=Math.max(...data.map(d=>d.pct));
+  el.innerHTML=data.map(d=>`
+    <div class="hbl-row">
+      <div class="hbl-label"><span class="en-text">${d.en}</span><span class="ar-text">${d.ar||d.en}</span></div>
+      <div class="hbl-track"><div class="hbl-fill" style="width:${d.pct/mx*100}%;background:${d.c}"></div></div>
+      <div class="hbl-val" style="color:${d.c}">${d.pct}%</div>
+    </div>`).join('');
+}
+
+function renderDMC(){
+  const el=document.getElementById('dmcListEl');if(!el)return;
+  const rk=['rk1','rk2','rk3','rkn','rkn','rkn','rkn'];
+  el.innerHTML=D.dmcs.map((d,i)=>`
+    <div class="dmc-row">
+      <div class="rank-badge ${rk[i]}">${i+1}</div>
+      <div class="dmc-info"><div class="dmc-name">${d.n}</div><div class="dmc-sub">${d.sub} · ${d.pkgs} packages</div></div>
+      <div class="dmc-stats">
+        <div class="dmc-stat"><div class="dmc-stat-val" style="color:${B.g1}">${d.done}</div><div class="dmc-stat-key"><span class="en-text">completed</span><span class="ar-text">مكتملة</span></div></div>
+        <div class="dmc-stat"><div class="dmc-stat-val" style="color:${B.t2}">${d.rev}</div><div class="dmc-stat-key">SAR</div></div>
+      </div>
+    </div>`).join('');
+}
+
+function renderDMCComp(){
+  const el=document.getElementById('dmcCompEl');if(!el)return;
+  const cols=[B.g1,B.t2,B.p2,B.w,B.i,B.r,B.g3];
+  el.innerHTML=D.dmcs.map((d,i)=>{
+    const pct=Math.round(d.done/d.pkgs*100);
+    return `<div class="hbl-row"><div class="hbl-label" style="font-size:11px">${d.n}</div><div class="hbl-track"><div class="hbl-fill" style="width:${pct}%;background:${cols[i]}"></div></div><div class="hbl-val">${pct}%</div></div>`;
+  }).join('');
+}
+
+function renderFeeTable(){
+  const el=document.getElementById('feeTblEl');if(!el)return;
+  el.innerHTML=D.fees.map(f=>`
+    <tr>
+      <td><div class="fee-en en-text">${f.en}</div><div class="fee-ar">${f.ar}</div></td>
+      <td style="font-size:10px;color:var(--tx3)">${f.per}</td>
+      <td class="fee-amt">${f.tot==='0'?'—':f.tot+' SAR'}</td>
+    </tr>`).join('');
+}
+
+function renderVal(){
+  const el=document.getElementById('valListEl');if(!el)return;
+  el.innerHTML=D.validations.map(v=>`
+    <div class="val-row">
+      <div class="val-icon">${v.icon}</div>
+      <div class="val-lbl" style="color:${v.c}"><span class="en-text">${v.en}</span><span class="ar-text">${v.ar}</span></div>
+      <div class="val-n" style="color:${v.c}">${v.n.toLocaleString()}</div>
+    </div>`).join('');
+}
+
+function renderActiveDmcTable(){
+  const el=document.getElementById('activeDmcTblEl');if(!el)return;
+  const rk=['🥇','🥈','🥉','4','5','6','7'];
+  el.innerHTML=D.dmcs.map((d,i)=>{
+    const pct=Math.round(d.done/d.pkgs*100);
+    const barW=pct;
+    return `<tr>
+      <td style="text-align:center;font-size:15px">${rk[i]||i+1}</td>
+      <td class="ptbl-val">${d.n}</td>
+      <td class="ptbl-td">${d.sub}</td>
+      <td class="ptbl-td" style="text-align:center;font-weight:700;color:var(--g1)">${d.pkgs.toLocaleString()}</td>
+      <td class="ptbl-td" style="text-align:center;color:var(--s-success)">${d.done.toLocaleString()}</td>
+      <td style="min-width:120px">
+        <div style="display:flex;align-items:center;gap:6px">
+          <div style="flex:1;height:6px;background:var(--srf3);border-radius:3px;overflow:hidden">
+            <div style="width:${barW}%;height:100%;background:var(--g1);border-radius:3px"></div>
+          </div>
+          <span style="font-size:11px;font-weight:700;color:var(--g1);min-width:32px">${pct}%</span>
+        </div>
+      </td>
+      <td class="ptbl-fee">${d.rev} SAR</td>
+      <td><span class="badge b-completed"><span class="en-text">Active</span><span class="ar-text">نشط</span></span></td>
+    </tr>`;
+  }).join('');
+}
+
+function renderInactiveDmcTable(){
+  const el=document.getElementById('inactiveDmcTblEl');if(!el)return;
+  const reasonColor={
+    'VCC expired':B.r,
+    'API integration failed':B.w,
+    'License renewal pending':B.w,
+    'Account suspended':B.r,
+  };
+  const actionColor={
+    'VCC expired':'var(--s-danger)',
+    'API integration failed':'var(--s-warn)',
+    'License renewal pending':'var(--s-warn)',
+    'Account suspended':'var(--s-danger)',
+  };
+  el.innerHTML=D.inactiveDmcs.map(d=>`
+    <tr>
+      <td class="ptbl-val">${d.n}</td>
+      <td class="ptbl-td">${d.sub}</td>
+      <td class="ptbl-td" style="text-align:center">${d.pkgs}</td>
+      <td class="ptbl-td" style="color:var(--tx2)">${d.rev} SAR</td>
+      <td style="font-size:11px;color:${reasonColor[d.reason]||B.r};font-weight:600">${d.reason}</td>
+      <td style="color:var(--tx3);font-size:11px">${d.since}</td>
+      <td style="font-size:11px;color:${actionColor[d.reason]||'var(--s-danger)'};font-weight:500">${d.action}</td>
+      <td><span class="badge b-rejected"><span class="en-text">Inactive</span><span class="ar-text">غير نشط</span></span></td>
+    </tr>`).join('');
+}
+
+function renderPkgTable(){
+  const el=document.getElementById('pkgTblEl');if(!el)return;
+  const bm={completed:'b-completed',processing:'b-processing',validated:'b-validated',received:'b-received',rejected:'b-rejected',cancelled:'b-cancelled',paid:'b-paid'};
+  const be={completed:'Completed',processing:'Processing',validated:'Validated',received:'Received',rejected:'Rejected',cancelled:'Cancelled',paid:'Fees Paid'};
+  const ba={completed:'مكتملة',processing:'قيد المعالجة',validated:'تم التحقق',received:'مستلمة',rejected:'مرفوضة',cancelled:'ملغاة',paid:'تم السداد'};
+  el.innerHTML=D.pkgs.map(r=>`
+    <tr>
+      <td><span class="ptbl-id">${r.id}</span></td>
+      <td class="ptbl-td">${r.dmc}</td>
+      <td class="ptbl-td" style="text-align:center">${r.n}</td>
+      <td class="ptbl-td">${r.nat}</td>
+      <td class="ptbl-td">${r.city}</td>
+      <td class="ptbl-td" style="max-width:140px;white-space:normal;line-height:1.3;font-size:11px">${r.hotel}</td>
+      <td class="ptbl-td" style="text-align:center">${'★'.repeat(r.s)}</td>
+      <td class="ptbl-td" style="text-align:center">${r.d}d</td>
+      <td class="ptbl-td" style="font-size:11px">${r.dep}</td>
+      <td class="ptbl-td" style="font-size:11px">${r.arr}</td>
+      <td class="ptbl-td" style="font-size:11px;color:var(--p2)">${r.ins}</td>
+      <td class="ptbl-val" style="color:var(--t1)">${r.hotelP} SAR</td>
+      <td class="ptbl-val" style="color:var(--p2)">${r.flightP} SAR</td>
+      <td style="font-size:11px;font-weight:600;color:var(--s-info)">${r.visaF} SAR</td>
+      <td style="font-size:11px;font-weight:600;color:var(--s-warn)">${r.procF} SAR</td>
+      <td style="font-size:11px;font-weight:600;color:var(--p2)">${r.insF} SAR</td>
+      <td class="ptbl-fee">${r.fee} SAR</td>
+      <td class="ptbl-val">${r.val} SAR</td>
+      <td><span class="badge ${bm[r.st]}"><span class="en-text">${be[r.st]}</span><span class="ar-text">${ba[r.st]}</span></span></td>
+      <td style="color:var(--tx3)">${r.dt}</td>
+    </tr>`).join('');
+}
+
+function renderVCC(){
+  const el=document.getElementById('vccListEl');if(!el)return;
+  el.innerHTML=D.vcc.map(v=>`
+    <div class="vcc-item">
+      <div><div class="vcc-lbl-en en-text">${v.en}</div><div class="vcc-lbl-ar ar-text">${v.ar}</div><div class="vcc-lbl-ar en-text">${v.ar}</div></div>
+      <div class="vcc-val" style="color:${v.c}">${v.v.toLocaleString()}</div>
+    </div>`).join('');
+}
+
+/* ── CHARTS ────────────────────────────────────── */
+const hexA=(hex,a)=>{const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);return `rgba(${r},${g},${b},${a})`;};
+
+window.rTimeline=()=>{
+  dc('cTimeline');const ctx=document.getElementById('cTimeline');if(!ctx)return;
+  charts.cTimeline=new Chart(ctx,{type:'bar',data:{labels:MONTHS,datasets:[
+    {label:'Submitted',data:D.timeline.sub,backgroundColor:hexA(B.g1,.15),borderColor:B.g1,borderWidth:2,borderRadius:5,borderSkipped:false},
+    {label:'Completed',data:D.timeline.com,backgroundColor:hexA(B.t2,.15),borderColor:B.t2,borderWidth:2,borderRadius:5,borderSkipped:false},
+  ]},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index'},
+    plugins:{legend:{display:true,labels:{color:'#3A5E52',boxWidth:10,boxHeight:10,borderRadius:3}},tooltip:TT},
+    scales:{x:{grid:GR,ticks:TK,border:BD},y:{grid:GR,ticks:TK,border:BD}}}});
+};
+
+window.rCities=()=>{
+  dc('cCities');const ctx=document.getElementById('cCities');if(!ctx)return;
+  charts.cCities=new Chart(ctx,{type:'doughnut',data:{labels:D.cities.labels,datasets:[{data:D.cities.vals,backgroundColor:D.cities.cols,borderWidth:3,borderColor:'#fff',hoverBorderColor:'#f0f0ea'}]},
+  options:{responsive:true,maintainAspectRatio:false,cutout:'62%',
+    plugins:{legend:{display:true,position:'right',labels:{color:'#3A5E52',boxWidth:10,boxHeight:10,borderRadius:3,padding:12,font:{size:11}}},
+    tooltip:{...TT,callbacks:{label:c=>` ${c.parsed}%`}}}}});
+};
+
+window.rDaily=()=>{
+  dc('cDaily');const ctx=document.getElementById('cDaily');if(!ctx)return;
+  const data=[12,18,24,15,30,28,35,19,42,38,50,44,29,35,48,52,41,37,60,55,43,49,58,62,44,51,48,55,61,58];
+  charts.cDaily=new Chart(ctx,{type:'line',data:{labels:Array.from({length:30},(_,i)=>`Day ${i+1}`),datasets:[
+    {data,borderColor:B.g1,backgroundColor:hexA(B.g1,.08),fill:true,tension:.4,borderWidth:2.5,pointRadius:0,pointHoverRadius:5}]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{tooltip:TT},
+    scales:{x:{grid:{display:false},ticks:{...TK,maxTicksLimit:10},border:BD},y:{grid:GR,ticks:TK,border:BD}}}});
+};
+
+window.rReject=()=>{
+  dc('cReject');const ctx=document.getElementById('cReject');if(!ctx)return;
+  const cols=[B.r,B.w,B.p2,B.i,B.t2,B.g1];
+  charts.cReject=new Chart(ctx,{type:'bar',
+    data:{labels:['Missing Data','Price < Min','Hotel < 4★','Invalid Passport','MOFA Mismatch','Duration > 21d'],
+    datasets:[{data:[48,35,27,19,12,7],backgroundColor:cols.map(c=>hexA(c,.7)),borderColor:cols,borderWidth:1.5,borderRadius:5,borderSkipped:false}]},
+  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{tooltip:TT},
+    scales:{x:{grid:GR,ticks:TK,border:BD},y:{grid:{display:false},ticks:{color:'#3A5E52'},border:BD}}}});
+};
+
+window.rVisaMon=()=>{
+  dc('cVisaMon');const ctx=document.getElementById('cVisaMon');if(!ctx)return;
+  charts.cVisaMon=new Chart(ctx,{type:'bar',data:{labels:MONTHS,datasets:[
+    {label:'Visas',    data:[0,180,340,430,570,650,790,870,710,760,640,368],backgroundColor:hexA(B.t2,.15),borderColor:B.t2,borderWidth:2,borderRadius:4,borderSkipped:false},
+    {label:'Insurance',data:[0,165,320,415,550,630,765,845,690,740,618,351],backgroundColor:hexA(B.p2,.15),borderColor:B.p2,borderWidth:2,borderRadius:4,borderSkipped:false},
+  ]},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index'},
+    plugins:{legend:{display:true,labels:{color:'#3A5E52',boxWidth:10,boxHeight:10,borderRadius:3}},tooltip:TT},
+    scales:{x:{grid:GR,ticks:TK,border:BD},y:{grid:GR,ticks:TK,border:BD}}}});
+};
+
+window.rVisaDur=()=>{
+  dc('cVisaDur');const ctx=document.getElementById('cVisaDur');if(!ctx)return;
+  charts.cVisaDur=new Chart(ctx,{type:'doughnut',data:{labels:['15-day (2–7d stay)','30-day (8–21d stay)'],datasets:[{data:[4820,6423],backgroundColor:[B.t2,B.g1],borderWidth:3,borderColor:'#fff'}]},
+  options:{responsive:true,maintainAspectRatio:false,cutout:'65%',
+    plugins:{legend:{display:true,position:'bottom',labels:{color:'#3A5E52',boxWidth:10,boxHeight:10,borderRadius:3,padding:12}},tooltip:{...TT,callbacks:{label:c=>` ${c.parsed.toLocaleString()} visas`}}}}});
+};
+
+window.rRev=()=>{
+  dc('cRev');const ctx=document.getElementById('cRev');if(!ctx)return;
+  charts.cRev=new Chart(ctx,{type:'line',data:{labels:MONTHS,datasets:[
+    {data:[0,91350,165100,213010,269700,308450,364950,399580,330340,350340,299760,172840],borderColor:B.g1,backgroundColor:hexA(B.g1,.07),fill:true,tension:.4,borderWidth:2.5,pointRadius:0,pointHoverRadius:5}]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{tooltip:{...TT,callbacks:{label:c=>` ${c.parsed.y.toLocaleString()} SAR`}}},
+    scales:{x:{grid:GR,ticks:TK,border:BD},y:{grid:GR,ticks:{...TK,callback:v=>(v/1000)+'K'},border:BD}}}});
+};
+
+window.rFeeBreak=()=>{
+  dc('cFeeBreak');const ctx=document.getElementById('cFeeBreak');if(!ctx)return;
+  charts.cFeeBreak=new Chart(ctx,{type:'doughnut',data:{labels:['Visa Fee','Insurance','Processing','Ministry'],datasets:[{data:[3372900,1037210,438477,0],backgroundColor:[B.g1,B.p2,B.t2,'#E0EDE8'],borderWidth:3,borderColor:'#fff'}]},
+  options:{responsive:true,maintainAspectRatio:false,cutout:'68%',
+    plugins:{legend:{display:true,position:'right',labels:{color:'#3A5E52',boxWidth:8,boxHeight:8,borderRadius:2,padding:8,font:{size:10}}},
+    tooltip:{...TT,callbacks:{label:c=>` ${c.parsed.toLocaleString()} SAR`}}}}});
+};
+
+window.rDmcPkg=()=>{
+  dc('cDmcPkg');const ctx=document.getElementById('cDmcPkg');if(!ctx)return;
+  const cols=[B.g1,B.t2,B.p2,B.w,B.i,B.r,B.g3];
+  charts.cDmcPkg=new Chart(ctx,{type:'bar',data:{labels:D.dmcs.map(d=>d.n),datasets:[
+    {label:'Submitted',data:D.dmcs.map(d=>d.pkgs),backgroundColor:cols.map(c=>hexA(c,.18)),borderColor:cols,borderWidth:2,borderRadius:5,borderSkipped:false},
+    {label:'Completed',data:D.dmcs.map(d=>d.done),backgroundColor:cols.map(c=>hexA(c,.55)),borderColor:cols,borderWidth:0,borderRadius:5,borderSkipped:false},
+  ]},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index'},
+    plugins:{legend:{display:true,labels:{color:'#3A5E52',boxWidth:10,boxHeight:10,borderRadius:3}},tooltip:TT},
+    scales:{x:{grid:{display:false},ticks:{...TK,maxRotation:30},border:BD},y:{grid:GR,ticks:TK,border:BD}}}});
+};
+
+window.rDmcRev=()=>{
+  dc('cDmcRev');const ctx=document.getElementById('cDmcRev');if(!ctx)return;
+  const cols=[B.g1,B.t2,B.p2,B.w,B.i,B.r,B.g3];
+  charts.cDmcRev=new Chart(ctx,{type:'doughnut',data:{labels:D.dmcs.map(d=>d.n),datasets:[{data:[1240,1040,930,760,610,460,290],backgroundColor:cols,borderWidth:3,borderColor:'#fff'}]},
+  options:{responsive:true,maintainAspectRatio:false,cutout:'60%',
+    plugins:{legend:{display:true,position:'right',labels:{color:'#3A5E52',boxWidth:10,boxHeight:10,borderRadius:3,padding:10,font:{size:10.5}}},tooltip:TT}}});
+};
+
+window.rPort=()=>{
+  dc('cPort');const ctx=document.getElementById('cPort');if(!ctx)return;
+  const cols=[B.g1,B.t2,B.p2,B.i,B.w,B.r];
+  charts.cPort=new Chart(ctx,{type:'bar',data:{labels:['KAIA Jeddah','King Khalid Riyadh','KFIA Dammam','Madinah Airport','Land: Bahrain','Land: UAE'],
+    datasets:[{data:[3840,2910,1420,780,520,370],backgroundColor:cols.map(c=>hexA(c,.65)),borderColor:cols,borderWidth:1.5,borderRadius:5,borderSkipped:false}]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{tooltip:TT},
+    scales:{x:{grid:{display:false},ticks:{...TK,maxRotation:35},border:BD},y:{grid:GR,ticks:TK,border:BD}}}});
+};
+
+window.rFlow=()=>{
+  dc('cFlow');const ctx=document.getElementById('cFlow');if(!ctx)return;
+  const wks=['W1 Jan','W2 Jan','W3 Jan','W4 Jan','W1 Feb','W2 Feb','W3 Feb','W4 Feb','W1 Mar'];
+  charts.cFlow=new Chart(ctx,{type:'line',data:{labels:wks,datasets:[
+    {label:'Entries',data:[180,210,240,195,310,280,350,340,390],borderColor:B.g1,backgroundColor:hexA(B.g1,.07),fill:true,tension:.4,borderWidth:2,pointRadius:0,pointHoverRadius:4},
+    {label:'Exits',  data:[120,170,200,175,270,250,310,295,340],borderColor:B.t2,backgroundColor:hexA(B.t2,.05),fill:true,tension:.4,borderWidth:2,pointRadius:0,pointHoverRadius:4},
+  ]},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index'},
+    plugins:{legend:{display:true,labels:{color:'#3A5E52',boxWidth:10,boxHeight:10,borderRadius:3}},tooltip:TT},
+    scales:{x:{grid:{display:false},ticks:TK,border:BD},y:{grid:GR,ticks:TK,border:BD}}}});
+};
+
+window.rCancel=()=>{
+  dc('cCancel');const ctx=document.getElementById('cCancel');if(!ctx)return;
+  charts.cCancel=new Chart(ctx,{type:'bar',data:{labels:MONTHS,datasets:[
+    {label:'Package', data:[0,8,14,19,22,18,25,28,19,21,16,9], backgroundColor:hexA(B.p2,.3),borderColor:B.p2,borderWidth:2,borderRadius:4,borderSkipped:false},
+    {label:'Traveler',data:[0,5,10,14,17,15,20,22,15,17,13,7], backgroundColor:hexA(B.w,.25),borderColor:B.w,borderWidth:2,borderRadius:4,borderSkipped:false},
+  ]},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index'},
+    plugins:{legend:{display:true,labels:{color:'#3A5E52',boxWidth:10,boxHeight:10,borderRadius:3}},tooltip:TT},
+    scales:{x:{grid:GR,ticks:TK,border:BD},y:{grid:GR,ticks:TK,border:BD}}}});
+};
+
+/* ── OVERSTAY DETAILS RENDERER ──────────────────────── */
+(function renderOverstay(){
+  const data = D.overstays;
+  if(!data || !data.length) return;
+
+  // ── Summary bar ─────────────────────────────────────
+  const totalTrav = data.reduce((s,p)=>s+p.travelers.length,0);
+  const totalPkg  = data.length;
+  const totalDmc  = new Set(data.map(p=>p.dmc)).size;
+  const maxDays   = Math.max(...data.flatMap(p=>p.travelers.map(t=>t.overDays)));
+  const set = (id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v};
+  set('osTotalTrav', totalTrav);
+  set('osTotalPkg',  totalPkg);
+  set('osTotalDmc',  totalDmc);
+  set('osMaxDays',   maxDays + 'd');
+
+  // ── Per-package cards ────────────────────────────────
+  const wrap = document.getElementById('overstayListEl');
+  if(!wrap) return;
+
+  wrap.innerHTML = data.map(pkg=>{
+    const tRows = pkg.travelers.map(t=>{
+      const cls = t.overDays >= 10 ? 'crit' : t.overDays >= 5 ? '' : 'warn';
+      return `<tr>
+        <td style="font-weight:600;color:#222">${t.name}</td>
+        <td>${t.nat}</td>
+        <td><span class="os-passport">${t.passport}</span></td>
+        <td><span class="os-lbl en-text">Traveler ID</span><span class="os-lbl ar-text">رقم المسافر</span><br>
+            <span style="font-family:'Courier New',monospace;font-size:11px;color:#1a5490">${t.id}</span></td>
+        <td>${t.entry}</td>
+        <td>${t.visaExp}</td>
+        <td><span class="os-days ${cls}">${t.overDays}d over</span></td>
+      </tr>`;
+    }).join('');
+
+    return `<div class="os-card">
+      <div class="os-card-hdr">
+        <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+          <span class="os-pkg-id">${pkg.pkgId}</span>
+          <span class="os-dmc">🏢 ${pkg.dmc}</span>
+          <span class="os-city">📍 ${pkg.city}</span>
+          <span class="os-hotel">🏨 ${pkg.hotel}</span>
+          <span style="font-size:11px;background:#ffeaea;color:#b83232;padding:2px 8px;border-radius:10px;font-weight:700">
+            ${pkg.travelers.length} <span class="en-text">traveler(s) overstaying</span><span class="ar-text">مسافر تجاوز المدة</span>
+          </span>
+        </div>
+        <div class="os-contact">
+          <span style="font-size:11px;color:#666;font-weight:600">
+            <span class="en-text">Contact DMC:</span><span class="ar-text">تواصل مع الشركة:</span>
+          </span>
+          <a class="os-contact-btn email" href="mailto:${pkg.dmcEmail}">✉️ ${pkg.dmcEmail}</a>
+          <a class="os-contact-btn phone" href="tel:${pkg.dmcPhone}">📞 ${pkg.dmcPhone}</a>
+        </div>
+      </div>
+      <div style="overflow-x:auto">
+        <table class="os-tbl">
+          <thead><tr>
+            <th><span class="en-text">Traveler Name</span><span class="ar-text">اسم المسافر</span></th>
+            <th><span class="en-text">Nationality</span><span class="ar-text">الجنسية</span></th>
+            <th><span class="en-text">Passport No.</span><span class="ar-text">رقم الجواز</span></th>
+            <th><span class="en-text">Traveler ID</span><span class="ar-text">رقم المسافر</span></th>
+            <th><span class="en-text">Entry Date</span><span class="ar-text">تاريخ الدخول</span></th>
+            <th><span class="en-text">Visa Expired</span><span class="ar-text">انتهاء التأشيرة</span></th>
+            <th><span class="en-text">Overstay</span><span class="ar-text">التجاوز</span></th>
+          </tr></thead>
+          <tbody>${tRows}</tbody>
+        </table>
+      </div>
+    </div>`;
+  }).join('');
+})();
+
+/* ── OVERSTAY EXPORT FUNCTIONS ──────────────────────── */
+
+// ── Shared: flatten all overstay rows into a flat array ──
+function getOverstayRows(){
+  const now = new Date();
+  return D.overstays.flatMap(pkg =>
+    pkg.travelers.map(t => ({
+      'Package ID':         pkg.pkgId,
+      'DMC Name':           pkg.dmc,
+      'DMC Email':          pkg.dmcEmail,
+      'DMC Phone':          pkg.dmcPhone,
+      'City of Stay':       pkg.city,
+      'Hotel':              pkg.hotel,
+      'Visa Type':          pkg.visaType,
+      'Traveler ID':        t.id,
+      'Traveler Name':      t.name,
+      'Nationality':        t.nat.replace(/[\u{1F1E0}-\u{1F1FF}]{2}/gu,'').trim(),
+      'Passport No.':       t.passport,
+      'Entry Date':         t.entry,
+      'Visa Expiry Date':   t.visaExp,
+      'Days Overstayed':    t.overDays,
+      'Severity':           t.overDays >= 10 ? 'Critical' : t.overDays >= 5 ? 'High' : 'Moderate',
+      'Action Required':    'Contact DMC to locate traveler and arrange immediate departure',
+      'Export Timestamp':   now.toISOString().replace('T',' ').substring(0,19),
+    }))
+  );
+}
+
+// ── CSV Export ───────────────────────────────────────────
+window.exportOverstayCSV = function(){
+  const rows   = getOverstayRows();
+  if(!rows.length){ alert('No overstay data to export.'); return; }
+  const headers = Object.keys(rows[0]);
+  const escape  = v => `"${String(v).replace(/"/g,'""')}"`;
+  const csv     = [
+    headers.map(escape).join(','),
+    ...rows.map(r => headers.map(h => escape(r[h])).join(','))
+  ].join('\r\n');
+
+  const BOM  = '\uFEFF';           // UTF-8 BOM — ensures Arabic names render correctly in Excel
+  const blob = new Blob([BOM + csv], { type: 'text/csv;charset=utf-8;' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  const ts   = new Date().toISOString().slice(0,10);
+  a.href     = url;
+  a.download = `Overstay_Alert_Report_${ts}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+};
+
+// ── Excel (.xlsx) Export via SheetJS CDN ─────────────────
+window.exportOverstayExcel = function(){
+  // Load SheetJS on demand if not already loaded
+  if(typeof XLSX === 'undefined'){
+    const s = document.createElement('script');
+    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';
+    s.onload = () => _doExcelExport();
+    s.onerror= () => { alert('Could not load Excel library. Please use CSV export instead.'); };
+    document.head.appendChild(s);
+  } else {
+    _doExcelExport();
+  }
+};
+
+function _doExcelExport(){
+  const rows    = getOverstayRows();
+  if(!rows.length){ alert('No overstay data to export.'); return; }
+  const headers = Object.keys(rows[0]);
+  const wsData  = [
+    headers,                                     // header row
+    ...rows.map(r => headers.map(h => r[h]))     // data rows
+  ];
+
+  const wb = XLSX.utils.book_new();
+  const ws = XLSX.utils.aoa_to_sheet(wsData);
+
+  // ── Column widths ─────────────────────────────────────
+  ws['!cols'] = [
+    {wch:20},{wch:22},{wch:28},{wch:20},{wch:14},{wch:26},{wch:10},
+    {wch:22},{wch:22},{wch:14},{wch:14},{wch:12},{wch:14},{wch:10},
+    {wch:8},{wch:12},{wch:44},{wch:22},
+  ];
+
+  // ── Style header row (red background, white bold text) ─
+  const redFill   = { fgColor:{ rgb:'B83232' } };
+  const whiteFont = { bold:true, color:{ rgb:'FFFFFF' }, sz:11 };
+  const centerAln = { horizontal:'center', vertical:'center', wrapText:true };
+  const thinBdr   = { style:'thin', color:{ rgb:'DDDDDD' } };
+  const cellBdr   = { top:thinBdr, bottom:thinBdr, left:thinBdr, right:thinBdr };
+
+  headers.forEach((h, ci) => {
+    const addr = XLSX.utils.encode_cell({ r:0, c:ci });
+    if(!ws[addr]) return;
+    ws[addr].s = { fill:redFill, font:whiteFont, alignment:centerAln, border:cellBdr };
+  });
+
+  // ── Style data rows: severity-based row color ──────────
+  rows.forEach((row, ri) => {
+    const sev = row['Severity'];
+    const bg  = sev === 'Critical' ? 'FFE5E5'
+              : sev === 'High'     ? 'FFF3E0'
+              :                      'FFFDE7';
+    headers.forEach((h, ci) => {
+      const addr = XLSX.utils.encode_cell({ r: ri+1, c: ci });
+      if(!ws[addr]) ws[addr] = { v:'', t:'s' };
+      ws[addr].s = {
+        fill: { fgColor:{ rgb: bg } },
+        font: { sz:10, bold: ci === 0 },
+        alignment: { vertical:'center', wrapText: ci === headers.length-2 },
+        border: cellBdr,
+      };
+    });
+  });
+
+  // ── Freeze first row ───────────────────────────────────
+  ws['!freeze'] = { xSplit:0, ySplit:1 };
+
+  // ── Auto-filter on header row ──────────────────────────
+  ws['!autofilter'] = { ref: XLSX.utils.encode_range({ s:{r:0,c:0}, e:{r:rows.length, c:headers.length-1} }) };
+
+  // ── Summary sheet ─────────────────────────────────────
+  const totalTrav = rows.length;
+  const totalPkg  = new Set(rows.map(r=>r['Package ID'])).size;
+  const totalDmc  = new Set(rows.map(r=>r['DMC Name'])).size;
+  const maxDays   = Math.max(...rows.map(r=>r['Days Overstayed']));
+  const ts        = new Date().toISOString().replace('T',' ').substring(0,19);
+
+  const sumData = [
+    ['Overstay Alert Report — Summary'],
+    ['Generated',            ts],
+    [''],
+    ['Metric',               'Value'],
+    ['Total Travelers Overstaying',  totalTrav],
+    ['Packages Affected',            totalPkg],
+    ['DMCs to Contact',              totalDmc],
+    ['Maximum Days Overstayed',      maxDays],
+    [''],
+    ['Report Source',    'Ministry of Tourism — Visa by Package Operations Dashboard'],
+    ['Classification',   'Confidential — Internal Use Only'],
+  ];
+  const wsSummary = XLSX.utils.aoa_to_sheet(sumData);
+  wsSummary['!cols'] = [{wch:36},{wch:52}];
+
+  XLSX.utils.book_append_sheet(wb, wsSummary, 'Summary');
+  XLSX.utils.book_append_sheet(wb, ws, 'Overstay Details');
+
+  const ts2 = new Date().toISOString().slice(0,10);
+  XLSX.writeFile(wb, `Overstay_Alert_Report_${ts2}.xlsx`);
+}
+
+window.rHotels=()=>{
+  dc('cHotels');const ctx=document.getElementById('cHotels');if(!ctx)return;
+  const cols=[B.g1,B.g2,B.g3,B.t1,B.t2,B.t3,B.p1,B.p2,B.w,B.i];
+  charts.cHotels=new Chart(ctx,{type:'bar',
+    data:{labels:D.hotels.map(h=>h.n),
+    datasets:[{data:D.hotels.map(h=>h.pkgs),backgroundColor:cols.map(c=>hexA(c,.75)),borderColor:cols,borderWidth:1.5,borderRadius:5,borderSkipped:false}]},
+  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+    plugins:{tooltip:{...TT,callbacks:{label:c=>` ${c.parsed.x} packages`}}},
+    scales:{x:{grid:GR,ticks:TK,border:BD},y:{grid:{display:false},ticks:{color:'#3A5E52',font:{size:10.5}},border:BD}}}});
+};
+
+window.rCarriers=()=>{
+  dc('cCarriers');const ctx=document.getElementById('cCarriers');if(!ctx)return;
+  const cols=[B.g1,B.t2,B.p2,B.w,B.g3,B.i,B.r];
+  charts.cCarriers=new Chart(ctx,{type:'bar',
+    data:{labels:D.carriers.map(c=>c.n),
+    datasets:[{data:D.carriers.map(c=>c.pkgs),backgroundColor:cols.map(c=>hexA(c,.75)),borderColor:cols,borderWidth:1.5,borderRadius:5,borderSkipped:false}]},
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{tooltip:{...TT,callbacks:{label:c=>` ${c.parsed.y} packages`}}},
+    scales:{x:{grid:{display:false},ticks:{...TK,maxRotation:30,font:{size:10}},border:BD},y:{grid:GR,ticks:TK,border:BD}}}});
+};
+
+window.rInsurers=()=>{
+  dc('cInsurers');const ctx=document.getElementById('cInsurers');if(!ctx)return;
+  const cols=[B.g1,B.t2,B.p2,B.w,B.i,B.g3];
+  charts.cInsurers=new Chart(ctx,{type:'doughnut',
+    data:{labels:D.insurers.map(i=>i.n),
+    datasets:[{data:D.insurers.map(i=>i.policies),backgroundColor:cols,borderWidth:3,borderColor:'#fff'}]},
+  options:{responsive:true,maintainAspectRatio:false,cutout:'60%',
+    plugins:{legend:{display:true,position:'right',labels:{color:'#3A5E52',boxWidth:10,boxHeight:10,borderRadius:3,padding:10,font:{size:10.5}}},
+    tooltip:{...TT,callbacks:{label:c=>` ${c.parsed.toLocaleString()} policies (${D.insurers[c.dataIndex].pct}%)`}}}}});
+};
+
+window.rPkgComp=()=>{
+  dc('cPkgComp');const ctx=document.getElementById('cPkgComp');if(!ctx)return;
+  charts.cPkgComp=new Chart(ctx,{type:'bar',data:{labels:MONTHS,datasets:[
+    {label:'Accommodation',data:D.pkgComp.accom,backgroundColor:hexA(B.g1,.7), borderColor:B.g1,borderWidth:0,borderRadius:3,stack:'s'},
+    {label:'Flights',      data:D.pkgComp.flight,backgroundColor:hexA(B.t2,.7), borderColor:B.t2,borderWidth:0,borderRadius:0,stack:'s'},
+    {label:'Other Services',data:D.pkgComp.other, backgroundColor:hexA(B.p2,.7), borderColor:B.p2,borderWidth:0,borderRadius:0,stack:'s'},
+  ]},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index'},
+    plugins:{legend:{display:true,labels:{color:'#3A5E52',boxWidth:10,boxHeight:10,borderRadius:3}},
+      tooltip:{...TT,callbacks:{label:c=>` ${c.dataset.label}: ${(c.parsed.y/1000).toFixed(0)}K SAR`}}},
+    scales:{x:{grid:GR,ticks:TK,border:BD,stacked:true},y:{grid:GR,ticks:{...TK,callback:v=>(v/1000)+'K'},border:BD,stacked:true}}}});
+};
+
+window.rPkgBreak=()=>{
+  dc('cPkgBreak');const ctx=document.getElementById('cPkgBreak');if(!ctx)return;
+  charts.cPkgBreak=new Chart(ctx,{type:'doughnut',
+    data:{labels:['Accommodation','Flights','Other Services'],
+    datasets:[{data:[93600000,74580000,18240000],backgroundColor:[B.g1,B.t2,B.p2],borderWidth:3,borderColor:'#fff'}]},
+  options:{responsive:true,maintainAspectRatio:false,cutout:'64%',
+    plugins:{legend:{display:true,position:'bottom',labels:{color:'#3A5E52',boxWidth:10,boxHeight:10,borderRadius:3,padding:12}},
+    tooltip:{...TT,callbacks:{label:c=>` ${(c.parsed/1e6).toFixed(1)}M SAR`}}}}});
+};
+
+/* ── TAB MAP ────────────────────────────────────── */
+const tabFn={
+  'overview':   [rTimeline,rCities],
+  'packages':   [rPkgComp,rPkgBreak,rRev,rFeeBreak,rHotels,rCarriers,rDaily,rReject],
+  'visa-ins':   [rVisaMon,rVisaDur,rInsurers],
+  'dmc':        [rDmcPkg,rDmcRev],
+  'moi':        [rPort,rFlow,rCancel],
+};
+
+function showTab(id,btn){
+  document.querySelectorAll('.section').forEach(s=>s.classList.add('hidden'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(`tab-${id}`)?.classList.remove('hidden');
+  if(btn)btn.classList.add('active');
+  setTimeout(()=>(tabFn[id]||[]).forEach(f=>f()),60);
+}
+
+/* ── LANG ───────────────────────────────────────── */
+function setLang(l){
+  document.body.classList.toggle('ar',l==='ar');
+  document.documentElement.lang=l;
+  document.documentElement.dir=l==='ar'?'rtl':'ltr';
+  document.getElementById('btnEn').classList.toggle('active',l==='en');
+  document.getElementById('btnAr').classList.toggle('active',l==='ar');
+}
+
+/* ── FILTERS ────────────────────────────────────── */
+function applyF(){
+  const b=document.querySelector('.btn-prim'),p=b.innerHTML;
+  b.innerHTML='<span>✓ Applied</span>';b.style.background='linear-gradient(135deg,#1A6854,#2E8B72)';
+  setTimeout(()=>{b.innerHTML=p;b.style.background=''},1500);
+}
+function resetF(){
+  document.querySelectorAll('select').forEach(s=>s.selectedIndex=0);
+  document.getElementById('f-from').value='2026-01-01';
+  document.getElementById('f-to').value='2026-03-10';
+}
+
+/* ── CLOCK ──────────────────────────────────────── */
+(function tick(){
+  const el=document.getElementById('clockEl');
+  if(el)el.textContent=new Date().toLocaleDateString('en-SA',{weekday:'short',day:'numeric',month:'short',year:'numeric'})+' · '+new Date().toLocaleTimeString('en-SA',{hour12:false});
+  setTimeout(tick,1000);
+})();
+
+/* ── INIT ───────────────────────────────────────── */
+(function init(){
+  renderFunnel(); renderCountries();
+  renderHbl('mofaEl', D.mofa); renderHbl('iaEl', D.ia);
+  renderHbl('cancelEl', D.cancelR);
+  // Insurer performance hbl
+  const insurerHbl = D.insurers.map(i=>({en:i.n, ar:i.ar, pct:i.pct, c:B.g1}));
+  insurerHbl[1].c=B.t2; insurerHbl[2].c=B.p2; insurerHbl[3].c=B.w; insurerHbl[4].c=B.i; insurerHbl[5].c=B.g3;
+  renderHbl('insurerHblEl', insurerHbl);
+  renderDMC(); renderDMCComp();
+  renderFeeTable(); renderVal(); renderPkgTable(); renderVCC();
+  renderActiveDmcTable(); renderInactiveDmcTable();
+  document.querySelectorAll('.kpi-val[data-target]').forEach(animKpi);
+  setTimeout(()=>{rTimeline();rCities();},200);
+})();
+</script>
+</body>
+</html>
