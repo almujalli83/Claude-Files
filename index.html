@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230C4B3A'/%3E%3Cpath d='M6 10Q10 6 16 7.5Q22 6 26 10' stroke='%232E8B72' stroke-width='2.2' stroke-linecap='round' fill='none'/%3E%3Cpath d='M5 15.5Q8 12.5 12.5 14L16 16L19.5 14Q24 12.5 27 15.5' stroke='%231E8070' stroke-width='2.2' stroke-linecap='round' fill='none'/%3E%3Cpath d='M7.5 22Q12 19 16 20.5Q20 19 24.5 22Q26 24.5 16 26Q6 24.5 7.5 22Z' stroke='%236B3FA0' stroke-width='2' stroke-linecap='round' fill='none'/%3E%3Ccircle cx='16' cy='16' r='1.5' fill='rgba(255,255,255,0.7)'/%3E%3C/svg%3E">
 <title>Visa by Package – لوحة المتابعة | Ministry of Tourism</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Noto+Sans+Arabic:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -157,11 +158,11 @@ body::after{
 
 .hdr-brand-text{display:flex;flex-direction:column;gap:1px}
 .hdr-brand-ar{font-family:var(--font-ar);font-size:15px;font-weight:800;color:#fff;line-height:1.1}
-.hdr-brand-en{font-size:10px;font-weight:500;color:rgba(255,255,255,0.65);letter-spacing:0.4px}
+.hdr-brand-en{font-size:10px;font-weight:500;color:rgba(255,255,255,0.85);letter-spacing:0.4px}
 
 .hdr-title{display:flex;flex-direction:column;gap:1px}
 .hdr-title-en{font-size:13.5px;font-weight:600;color:#fff;letter-spacing:-.2px}
-.hdr-title-ar{font-size:12px;font-weight:700;color:rgba(255,255,255,0.70);font-family:var(--font-ar)}
+.hdr-title-ar{font-size:12px;font-weight:700;color:rgba(255,255,255,0.85);font-family:var(--font-ar)}
 
 .hdr-right{display:flex;align-items:center;gap:10px}
 
@@ -173,7 +174,7 @@ body::after{
 .live-dot{width:6px;height:6px;border-radius:50%;background:var(--t3);animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.5)}}
 
-.hdr-clock{font-size:11px;color:rgba(255,255,255,0.55)}
+.hdr-clock{font-size:11px;color:rgba(255,255,255,0.75)}
 
 .lang-pill{
   display:flex;background:rgba(255,255,255,0.10);border-radius:8px;padding:3px;gap:2px;
@@ -182,7 +183,7 @@ body::after{
 .lang-btn{
   padding:4px 13px;border-radius:6px;border:none;cursor:pointer;
   font-size:11.5px;font-weight:700;transition:all var(--ease);
-  background:transparent;color:rgba(255,255,255,0.65);font-family:var(--font);
+  background:transparent;color:rgba(255,255,255,0.75);font-family:var(--font);
 }
 .lang-btn.active{background:var(--t2);color:#fff;box-shadow:0 2px 8px rgba(30,128,112,0.4)}
 
@@ -200,10 +201,10 @@ body::after{
 .nav-btn{
   padding:12px 20px;border:none;cursor:pointer;white-space:nowrap;
   font-size:12px;font-weight:600;font-family:var(--font);
-  background:transparent;color:rgba(255,255,255,0.50);
+  background:transparent;color:rgba(255,255,255,0.72);
   border-bottom:3px solid transparent;transition:all var(--ease);
 }
-.nav-btn:hover:not(.active){color:rgba(255,255,255,0.85);background:rgba(255,255,255,0.04)}
+.nav-btn:hover:not(.active){color:rgba(255,255,255,0.92);background:rgba(255,255,255,0.06)}
 .nav-btn.active{color:var(--t3);border-bottom-color:var(--t3)}
 
 /* ═══════════════════════════════════════════════════════
@@ -468,7 +469,7 @@ body.ar .fi-actions{margin-left:0;margin-right:auto}
 /* ═══════════════════════════════════════════════════════
    PACKAGE TABLE
 ═══════════════════════════════════════════════════════ */
-.tbl-wrap{overflow-x:auto}
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
 table.ptbl{width:100%;border-collapse:collapse;font-size:11.5px}
 .ptbl thead tr{background:linear-gradient(135deg,var(--g1),var(--g2))}
 .ptbl th{
@@ -764,13 +765,157 @@ body.ar .kbd-hint{left:auto;right:28px}
 /* ═══════════════════════════════════════════════════════
    PRINT STYLES
 ═══════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════
+   PROFESSIONAL FOOTER
+═══════════════════════════════════════════════════════ */
+.site-footer{
+  background:var(--g1);border-top:3px solid var(--t2);
+  padding:28px 30px 22px;margin-top:40px;
+  box-shadow:0 -2px 24px rgba(12,75,58,0.15);
+}
+.footer-inner{
+  max-width:1760px;margin:0 auto;
+  display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:30px;
+  align-items:start;
+}
+.footer-col{color:rgba(255,255,255,0.7);font-size:11px;line-height:1.6}
+.footer-mot{font-size:13px;font-weight:700;color:#fff;margin-bottom:6px}
+.footer-vision{font-size:10.5px;color:rgba(255,255,255,0.5);font-style:italic}
+.footer-sources-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:rgba(255,255,255,0.45);margin-bottom:6px}
+.footer-sources-list{color:rgba(255,255,255,0.65);font-size:11px}
+.footer-classification{
+  display:inline-flex;align-items:center;gap:5px;
+  background:rgba(184,50,50,0.25);border:1px solid rgba(184,50,50,0.35);
+  border-radius:6px;padding:4px 12px;font-size:10px;font-weight:700;
+  color:#ffb3b3;margin-bottom:8px;
+}
+.footer-version{font-size:10px;color:rgba(255,255,255,0.45)}
+body.dark .site-footer{background:#0A1F18;border-top-color:var(--t3)}
+body.ar .footer-inner{direction:rtl}
+
+/* ═══════════════════════════════════════════════════════
+   FOCUS-VISIBLE STATES
+═══════════════════════════════════════════════════════ */
+*:focus-visible{
+  outline:2px solid var(--t2);outline-offset:2px;
+}
+.nav-btn:focus-visible{
+  outline-color:var(--t3);outline-offset:-2px;
+  background:rgba(255,255,255,0.06);
+}
+.lang-btn:focus-visible,.dark-toggle:focus-visible,.notif-btn:focus-visible{
+  outline-color:rgba(255,255,255,0.6);
+}
+.btn-prim:focus-visible{
+  outline-color:var(--g3);box-shadow:0 0 0 4px rgba(12,75,58,0.2);
+}
+select:focus-visible,input[type=date]:focus-visible{
+  outline:2px solid var(--g1);outline-offset:1px;
+}
+
+/* ═══════════════════════════════════════════════════════
+   LOADING SKELETON FOR TAB SWITCH
+═══════════════════════════════════════════════════════ */
+.tab-skeleton{display:none;padding:20px 0;animation:up .3s ease both}
+.tab-skeleton.active{display:block}
+.skel-kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.skel-kpi{height:120px}
+.skel-card{height:260px;border-radius:var(--r);margin-bottom:12px}
+.skel-row{height:16px;margin-bottom:10px;border-radius:4px;width:80%}
+.skel-g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+/* ═══════════════════════════════════════════════════════
+   EMPTY STATE
+═══════════════════════════════════════════════════════ */
+.empty-state{
+  text-align:center;padding:60px 20px;color:var(--tx3);
+}
+.empty-state-icon{font-size:48px;margin-bottom:12px;opacity:0.5}
+.empty-state-msg{font-size:14px;font-weight:600;color:var(--tx2);margin-bottom:4px}
+.empty-state-sub{font-size:12px;color:var(--tx3)}
+
+/* ═══════════════════════════════════════════════════════
+   LAST REFRESHED INDICATOR
+═══════════════════════════════════════════════════════ */
+.last-refreshed{
+  font-size:9px;color:rgba(255,255,255,0.50);
+  white-space:nowrap;margin-left:4px;
+}
+body.ar .last-refreshed{margin-left:0;margin-right:4px}
+
+/* ═══════════════════════════════════════════════════════
+   TABLE SCROLL WRAPPER (MOBILE)
+═══════════════════════════════════════════════════════ */
+.tbl-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+/* ═══════════════════════════════════════════════════════
+   RESPONSIVE — TABLET (768px)
+═══════════════════════════════════════════════════════ */
+@media(max-width:768px){
+  .header{flex-wrap:wrap;height:auto;padding:12px 16px;gap:8px}
+  .hdr-brand{padding-right:12px;margin-right:12px}
+  .hdr-brand svg{width:34px;height:34px}
+  .hdr-brand-ar{font-size:13px}
+  .hdr-title-en{font-size:12px}
+  .hdr-title-ar{font-size:11px}
+  .hdr-right{gap:8px}
+  .nav{padding:0 12px}
+  .nav-btn{padding:10px 14px;font-size:11px}
+  .main{padding:16px 16px 40px}
+  .filters{flex-direction:column;align-items:stretch;gap:10px}
+  .fi{width:100%}
+  .fi-actions{margin-left:0;width:100%;justify-content:flex-end}
+  body.ar .fi-actions{margin-right:0}
+  .kpi-grid{grid-template-columns:repeat(2,1fr)}
+  .ch,.ch-lg{height:200px}
+  .welcome-banner{flex-direction:column;gap:16px;text-align:center;padding:18px 20px}
+  .wb-stats{justify-content:center}
+  .skel-kpi-grid{grid-template-columns:repeat(2,1fr)}
+  .footer-inner{grid-template-columns:1fr;gap:18px;text-align:center}
+  body.ar .footer-inner{text-align:center}
+  .tbl-scroll table,.tbl-wrap table{min-width:700px}
+  .overstay-bar{grid-template-columns:repeat(2,1fr)}
+  .os-card-hdr{flex-direction:column;align-items:flex-start}
+}
+
+/* ═══════════════════════════════════════════════════════
+   RESPONSIVE — MOBILE (480px)
+═══════════════════════════════════════════════════════ */
+@media(max-width:480px){
+  .header{padding:10px 12px}
+  .hdr-brand-en{display:none}
+  .hdr-clock{display:none}
+  .last-refreshed{display:none}
+  .kpi-grid{grid-template-columns:1fr}
+  .nav-btn{padding:10px 10px;font-size:10.5px}
+  .ch,.ch-sm,.ch-lg{height:160px}
+  .kpi-val{font-size:24px}
+  .wb-greeting{font-size:16px}
+  .wb-stats{gap:16px}
+  .wb-stat-val{font-size:20px}
+  .skel-kpi-grid{grid-template-columns:1fr}
+  .g2,.g3,.g32,.g23{grid-template-columns:1fr}
+  .moi-grid{grid-template-columns:1fr}
+  .notif-dropdown{width:280px;right:-60px}
+  body.ar .notif-dropdown{right:auto;left:-60px}
+  .kbd-hint{display:none}
+}
+
+/* ═══════════════════════════════════════════════════════
+   PRINT STYLES
+═══════════════════════════════════════════════════════ */
 @media print{
-  .header,.nav,.filters,.scroll-top,.kbd-hint,.notif-wrap,.dark-toggle,.welcome-banner,.wb-close,.chart-expand-btn{display:none!important}
+  .header,.nav,.filters,.scroll-top,.kbd-hint,.notif-wrap,.dark-toggle,.welcome-banner,.wb-close,.chart-expand-btn,.site-footer{display:none!important}
   body,body.dark{background:#fff!important;color:#000!important}
   .main{padding:10px!important}
   .card,.kpi{break-inside:avoid;box-shadow:none!important;border:1px solid #ddd!important}
   .section.hidden{display:block!important}
   canvas{max-height:200px!important}
+  .print-classification{
+    display:block!important;text-align:center;
+    font-size:10px;font-weight:700;color:#b83232;
+    padding:8px 0;border-top:1px solid #ddd;margin-top:20px;
+  }
 }
 body.ar .ptbl th,.ptbl td,.ftbl-wrap th,.ftbl-wrap td{text-align:right}
 body.ar .fee-amt{text-align:left}
@@ -829,7 +974,7 @@ body.ar .moi-card{border-left:none;border-right:3px solid var(--g1)}
 <body>
 
 <!-- ════ HEADER ════════════════════════════════════════ -->
-<header class="header">
+<header class="header" role="banner">
   <div class="hdr-left">
     <div class="hdr-brand">
       <!-- MoT logo mark: green / teal / purple calligraphy-inspired -->
@@ -857,9 +1002,13 @@ body.ar .moi-card{border-left:none;border-right:3px solid var(--g1)}
   </div>
   <div class="hdr-right">
     <div class="pill-live"><div class="live-dot"></div><span>Live</span></div>
+    <span class="last-refreshed" id="lastRefreshed">
+      <span class="en-text">Last refreshed: just now</span>
+      <span class="ar-text">آخر تحديث: الآن</span>
+    </span>
     <div class="hdr-clock" id="clockEl"></div>
     <div class="notif-wrap">
-      <button class="notif-btn" id="notifBtn" onclick="toggleNotif()">
+      <button class="notif-btn" id="notifBtn" onclick="toggleNotif()" aria-label="Notifications" aria-haspopup="true" aria-expanded="false">
         <span>🔔</span>
         <div class="notif-badge" id="notifBadge">5</div>
       </button>
@@ -871,32 +1020,32 @@ body.ar .moi-card{border-left:none;border-right:3px solid var(--g1)}
         <div class="notif-list" id="notifList"></div>
       </div>
     </div>
-    <button class="dark-toggle" id="darkBtn" onclick="toggleDark()" title="Toggle dark mode">
+    <button class="dark-toggle" id="darkBtn" onclick="toggleDark()" title="Toggle dark mode" aria-label="Toggle dark mode">
       <span class="icon-sun">☀️</span>
       <span class="icon-moon">🌙</span>
     </button>
     <div class="lang-pill">
-      <button class="lang-btn active" id="btnEn" onclick="setLang('en')">EN</button>
-      <button class="lang-btn" id="btnAr" onclick="setLang('ar')">عربي</button>
+      <button class="lang-btn active" id="btnEn" onclick="setLang('en')" aria-label="Switch to English">EN</button>
+      <button class="lang-btn" id="btnAr" onclick="setLang('ar')" aria-label="التبديل إلى العربية">عربي</button>
     </div>
   </div>
 </header>
 
 <!-- ════ NAV ════════════════════════════════════════════ -->
-<nav class="nav">
-  <button class="nav-btn active" onclick="showTab('overview',this)">
+<nav class="nav" role="tablist" aria-label="Dashboard sections">
+  <button class="nav-btn active" role="tab" aria-selected="true" aria-controls="tab-overview" id="nav-overview" onclick="showTab('overview',this)">
     <span class="en-text">📊 Overview</span><span class="ar-text">📊 نظرة عامة</span>
   </button>
-  <button class="nav-btn" onclick="showTab('packages',this)">
+  <button class="nav-btn" role="tab" aria-selected="false" aria-controls="tab-packages" id="nav-packages" onclick="showTab('packages',this)">
     <span class="en-text">📦 Packages & Financials</span><span class="ar-text">📦 الباقات والمالية</span>
   </button>
-  <button class="nav-btn" onclick="showTab('visa-ins',this)">
+  <button class="nav-btn" role="tab" aria-selected="false" aria-controls="tab-visa-ins" id="nav-visa-ins" onclick="showTab('visa-ins',this)">
     <span class="en-text">🛂 Visa & Insurance</span><span class="ar-text">🛂 التأشيرة والتأمين</span>
   </button>
-  <button class="nav-btn" onclick="showTab('dmc',this)">
+  <button class="nav-btn" role="tab" aria-selected="false" aria-controls="tab-dmc" id="nav-dmc" onclick="showTab('dmc',this)">
     <span class="en-text">🏢 DMC Performance</span><span class="ar-text">🏢 أداء الشركات</span>
   </button>
-  <button class="nav-btn" onclick="showTab('moi',this)">
+  <button class="nav-btn" role="tab" aria-selected="false" aria-controls="tab-moi" id="nav-moi" onclick="showTab('moi',this)">
     <span class="en-text">🚪 Entry & Cancellations</span><span class="ar-text">🚪 الدخول والإلغاء</span>
   </button>
 </nav>
@@ -984,8 +1133,36 @@ body.ar .moi-card{border-left:none;border-right:3px solid var(--g1)}
   </div>
 </div>
 
+<!-- LOADING SKELETON -->
+<div class="tab-skeleton" id="tabSkeleton">
+  <div class="skel-kpi-grid">
+    <div class="skeleton skel-kpi"></div>
+    <div class="skeleton skel-kpi"></div>
+    <div class="skeleton skel-kpi"></div>
+    <div class="skeleton skel-kpi"></div>
+  </div>
+  <div class="skeleton skel-card"></div>
+  <div class="skel-g2">
+    <div class="skeleton skel-card"></div>
+    <div class="skeleton skel-card"></div>
+  </div>
+</div>
+
+<!-- EMPTY STATE -->
+<div class="empty-state" id="emptyState" style="display:none">
+  <div class="empty-state-icon">📭</div>
+  <div class="empty-state-msg">
+    <span class="en-text">No data matches the selected filters</span>
+    <span class="ar-text">لا توجد بيانات تطابق الفلاتر المحددة</span>
+  </div>
+  <div class="empty-state-sub">
+    <span class="en-text">Try adjusting date range, status, or other filter criteria</span>
+    <span class="ar-text">حاول تعديل نطاق التاريخ أو الحالة أو معايير أخرى</span>
+  </div>
+</div>
+
 <!-- ════════ OVERVIEW ════════════════════════════════════ -->
-<div id="tab-overview" class="section">
+<div id="tab-overview" class="section" role="tabpanel" aria-labelledby="nav-overview">
   <div class="kpi-grid">
     <div class="kpi kv-g" style="animation-delay:.04s">
       <div class="kpi-top"><div class="kpi-icon">📦</div><div class="kpi-delta d-up">↑ 18%</div></div>
@@ -1099,7 +1276,7 @@ body.ar .moi-card{border-left:none;border-right:3px solid var(--g1)}
 </div>
 
 <!-- ════════ PACKAGES ════════════════════════════════════ -->
-<div id="tab-packages" class="section hidden">
+<div id="tab-packages" class="section hidden" role="tabpanel" aria-labelledby="nav-packages">
 
   <!-- ── SECTION: Package Value Summary ──────────────────── -->
   <div class="sdiv"><span><span class="en-text">Package Value Summary</span><span class="ar-text">ملخص قيم الباقات</span></span></div>
@@ -1262,7 +1439,7 @@ body.ar .moi-card{border-left:none;border-right:3px solid var(--g1)}
 </div>
 
 <!-- ════════ VISA & INSURANCE ════════════════════════════ -->
-<div id="tab-visa-ins" class="section hidden">
+<div id="tab-visa-ins" class="section hidden" role="tabpanel" aria-labelledby="nav-visa-ins">
   <div class="g3" style="margin-bottom:12px">
     <div class="kpi kv-t"><div class="kpi-top"><div class="kpi-icon">🛂</div><div class="kpi-delta d-up">↑ 22%</div></div><div class="kpi-val">11,243</div><div class="kpi-label-en en-text">Visas Issued (MOFA)</div><div class="kpi-label-ar">تأشيرات صادرة</div></div>
     <div class="kpi kv-p"><div class="kpi-top"><div class="kpi-icon">🛡️</div><div class="kpi-delta d-up">↑ 19%</div></div><div class="kpi-val">10,918</div><div class="kpi-label-en en-text">Insurance Policies (IA)</div><div class="kpi-label-ar">وثائق تأمين</div></div>
@@ -1296,7 +1473,7 @@ body.ar .moi-card{border-left:none;border-right:3px solid var(--g1)}
 </div>
 
 <!-- ════════ DMC ══════════════════════════════════════════ -->
-<div id="tab-dmc" class="section hidden">
+<div id="tab-dmc" class="section hidden" role="tabpanel" aria-labelledby="nav-dmc">
 
   <!-- KPI summary row -->
   <div class="kpi-grid" style="margin-bottom:12px">
@@ -1386,7 +1563,7 @@ body.ar .moi-card{border-left:none;border-right:3px solid var(--g1)}
 </div>
 
 <!-- ════════ ENTRY & CANCELLATIONS ═══════════════════════ -->
-<div id="tab-moi" class="section hidden">
+<div id="tab-moi" class="section hidden" role="tabpanel" aria-labelledby="nav-moi">
   <div class="sdiv"><span><span class="en-text">Entry & Exit — MOI</span><span class="ar-text">الدخول والخروج</span></span></div>
   <div class="kpi-grid" style="margin-bottom:12px">
     <div class="kpi kv-g"><div class="kpi-top"><div class="kpi-icon">✈️</div><div class="kpi-delta d-up">↑ 24%</div></div><div class="kpi-val">9,840</div><div class="kpi-label-en en-text">Travelers Entered KSA</div><div class="kpi-label-ar">دخلوا المملكة</div></div>
@@ -1457,7 +1634,7 @@ body.ar .moi-card{border-left:none;border-right:3px solid var(--g1)}
 </main>
 
 <!-- SCROLL TO TOP -->
-<button class="scroll-top" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">↑</button>
+<button class="scroll-top" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top" aria-label="Scroll to top">↑</button>
 
 <!-- KEYBOARD SHORTCUTS HINT -->
 <div class="kbd-hint" id="kbdHint">
@@ -1467,6 +1644,41 @@ body.ar .moi-card{border-left:none;border-right:3px solid var(--g1)}
   &nbsp;·&nbsp;
   <kbd>?</kbd> <span class="en-text">Toggle hints</span><span class="ar-text">إظهار</span>
 </div>
+
+<!-- PROFESSIONAL FOOTER -->
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-col footer-brand">
+      <div class="footer-mot">
+        <span class="en-text">Ministry of Tourism — Kingdom of Saudi Arabia</span>
+        <span class="ar-text">وزارة السياحة — المملكة العربية السعودية</span>
+      </div>
+      <div class="footer-vision">
+        <span class="en-text">Aligned with Saudi Vision 2030 — رؤية السعودية ٢٠٣٠</span>
+        <span class="ar-text">تماشياً مع رؤية السعودية ٢٠٣٠</span>
+      </div>
+    </div>
+    <div class="footer-col footer-sources">
+      <div class="footer-sources-title">
+        <span class="en-text">Data Sources</span>
+        <span class="ar-text">مصادر البيانات</span>
+      </div>
+      <div class="footer-sources-list">
+        <span class="en-text">MOFA (Ministry of Foreign Affairs) · MoI (Ministry of Interior) · IA (Insurance Authority) · MoT Internal Systems</span>
+        <span class="ar-text">وزارة الخارجية · وزارة الداخلية · هيئة التأمين · أنظمة وزارة السياحة</span>
+      </div>
+    </div>
+    <div class="footer-col footer-meta">
+      <div class="footer-classification">
+        <span class="en-text">⚠ Confidential — Internal Use Only</span>
+        <span class="ar-text">⚠ سري — للاستخدام الداخلي فقط</span>
+      </div>
+      <div class="footer-version">
+        v1.2.0 · <span class="en-text">Last updated: </span><span class="ar-text">آخر تحديث: </span><span id="footerTimestamp"></span>
+      </div>
+    </div>
+  </div>
+</footer>
 
 <!-- CHART FULLSCREEN MODAL -->
 <div class="chart-modal-overlay" id="chartModal" onclick="closeChartModal(event)">
@@ -2269,11 +2481,22 @@ const tabFn={
 };
 
 function showTab(id,btn){
+  const skel = document.getElementById('tabSkeleton');
   document.querySelectorAll('.section').forEach(s=>s.classList.add('hidden'));
-  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById(`tab-${id}`)?.classList.remove('hidden');
-  if(btn)btn.classList.add('active');
-  setTimeout(()=>(tabFn[id]||[]).forEach(f=>f()),60);
+  document.querySelectorAll('.nav-btn').forEach(b=>{
+    b.classList.remove('active');
+    b.setAttribute('aria-selected','false');
+  });
+  if(skel) skel.classList.add('active');
+  if(btn){
+    btn.classList.add('active');
+    btn.setAttribute('aria-selected','true');
+  }
+  setTimeout(()=>{
+    if(skel) skel.classList.remove('active');
+    document.getElementById(`tab-${id}`)?.classList.remove('hidden');
+    setTimeout(()=>(tabFn[id]||[]).forEach(f=>f()),60);
+  },220);
 }
 
 /* ── LANG ───────────────────────────────────────── */
@@ -2293,8 +2516,10 @@ function applyF(){
 }
 function resetF(){
   document.querySelectorAll('select').forEach(s=>s.selectedIndex=0);
-  document.getElementById('f-from').value='2026-01-01';
-  document.getElementById('f-to').value='2026-03-10';
+  const today = new Date();
+  document.getElementById('f-from').value = new Date(today.getFullYear(),0,1).toISOString().slice(0,10);
+  document.getElementById('f-to').value = today.toISOString().slice(0,10);
+  hideEmptyState();
 }
 
 /* ── CLOCK ──────────────────────────────────────── */
@@ -2390,7 +2615,9 @@ const notifications = [
 })();
 function toggleNotif(){
   const dd = document.getElementById('notifDrop');
+  const btn = document.getElementById('notifBtn');
   dd.classList.toggle('open');
+  btn?.setAttribute('aria-expanded', dd.classList.contains('open'));
 }
 function clearNotifs(){
   document.querySelectorAll('.notif-item.unread').forEach(el=>el.classList.remove('unread'));
@@ -2569,11 +2796,104 @@ document.querySelectorAll('.btn-prim, .btn-ghost, .nav-btn, .lang-btn').forEach(
   pill.appendChild(span);
   setInterval(()=>{
     countdown--;
-    if(countdown <= 0) countdown = 300;
+    if(countdown <= 0){ countdown = 300; if(window.markRefreshed) markRefreshed(); }
     const m = Math.floor(countdown/60), s = countdown%60;
     span.textContent = `${m}:${s.toString().padStart(2,'0')}`;
   },1000);
 })();
+
+/* ══════════════════════════════════════════════════════════
+   PROFESSIONAL ENHANCEMENTS
+══════════════════════════════════════════════════════════ */
+
+/* ── DYNAMIC DATE DEFAULTS ─────────────────────────── */
+(function setDateDefaults(){
+  const today = new Date();
+  const toEl = document.getElementById('f-to');
+  const fromEl = document.getElementById('f-from');
+  if(toEl) toEl.value = today.toISOString().slice(0,10);
+  if(fromEl) fromEl.value = new Date(today.getFullYear(),0,1).toISOString().slice(0,10);
+})();
+
+/* ── LAST REFRESHED INDICATOR ──────────────────────── */
+(function lastRefreshed(){
+  let lastTime = Date.now();
+  const el = document.getElementById('lastRefreshed');
+  if(!el) return;
+  function update(){
+    const ago = Math.floor((Date.now()-lastTime)/1000);
+    const enSpan = el.querySelector('.en-text');
+    const arSpan = el.querySelector('.ar-text');
+    if(ago < 5){
+      if(enSpan) enSpan.textContent = 'Last refreshed: just now';
+      if(arSpan) arSpan.textContent = 'آخر تحديث: الآن';
+    } else if(ago < 60){
+      if(enSpan) enSpan.textContent = `Last refreshed: ${ago}s ago`;
+      if(arSpan) arSpan.textContent = `آخر تحديث: منذ ${ago} ثانية`;
+    } else {
+      const m = Math.floor(ago/60);
+      if(enSpan) enSpan.textContent = `Last refreshed: ${m}m ago`;
+      if(arSpan) arSpan.textContent = `آخر تحديث: منذ ${m} دقيقة`;
+    }
+  }
+  setInterval(update, 10000);
+  update();
+  window.markRefreshed = function(){ lastTime = Date.now(); update(); };
+})();
+
+/* ── FOOTER TIMESTAMP ──────────────────────────────── */
+(function(){
+  const el = document.getElementById('footerTimestamp');
+  if(el){
+    const now = new Date();
+    el.textContent = now.toLocaleDateString('en-SA',{day:'numeric',month:'short',year:'numeric'})
+      + ' · ' + now.toLocaleTimeString('en-SA',{hour:'2-digit',minute:'2-digit',hour12:false});
+  }
+})();
+
+/* ── RELATIVE TIMESTAMPS IN NOTIFICATIONS ──────────── */
+(function upgradeNotifTimestamps(){
+  const offsets = [120000, 900000, 3600000, 10800000, 18000000]; // 2m, 15m, 1h, 3h, 5h
+  const now = Date.now();
+  notifications.forEach((n,i)=>{ n.ts = now - (offsets[i]||0); });
+  function relativeTime(ts, lang){
+    const diff = Date.now() - ts;
+    const mins = Math.floor(diff/60000);
+    const hours = Math.floor(diff/3600000);
+    if(lang==='ar'){
+      if(mins<1) return 'الآن';
+      if(mins<60) return `منذ ${mins} دقيقة`;
+      return `منذ ${hours} ساعة`;
+    }
+    if(mins<1) return 'Just now';
+    if(mins<60) return `${mins} min ago`;
+    return `${hours}h ago`;
+  }
+  function rerender(){
+    const el = document.getElementById('notifList');
+    if(!el) return;
+    el.innerHTML = notifications.map(n=>`
+      <div class="notif-item ${n.unread?'unread':''}">
+        <div class="notif-icon">${n.icon}</div>
+        <div class="notif-body">
+          <div class="notif-text"><span class="en-text">${n.text}</span><span class="ar-text">${n.textAr}</span></div>
+          <div class="notif-time"><span class="en-text">${relativeTime(n.ts,'en')}</span><span class="ar-text">${relativeTime(n.ts,'ar')}</span></div>
+        </div>
+      </div>`).join('');
+  }
+  rerender();
+  setInterval(rerender, 60000);
+})();
+
+/* ── EMPTY STATE HANDLERS ──────────────────────────── */
+function showEmptyState(){
+  const el = document.getElementById('emptyState');
+  if(el) el.style.display = 'block';
+}
+function hideEmptyState(){
+  const el = document.getElementById('emptyState');
+  if(el) el.style.display = 'none';
+}
 </script>
 </body>
 </html>
