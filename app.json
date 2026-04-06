@@ -1,0 +1,40 @@
+{
+  "expo": {
+    "name": "Explore Saudi",
+    "slug": "explore-saudi",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "exploresaudi",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "backgroundColor": "#051f1f",
+      "resizeMode": "contain"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.exploresaudi.app"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#051f1f"
+      },
+      "package": "com.exploresaudi.app"
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "single"
+    },
+    "experiments": {
+      "baseUrl": "/Explore-Saudi"
+    },
+    "plugins": [
+      "expo-font",
+      "expo-localization",
+      [
+        "expo-image",
+        { "allowBackgroundRemoval": false }
+      ]
+    ]
+  }
+}
